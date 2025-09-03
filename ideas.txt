@@ -1,0 +1,115 @@
+* = sellable
+
+myFarm (stage-1):
+	crops*
+	  |
+	  ↓
+	animals*
+	  |
+	  ↓
+	products*
+
+
+mySmithy (stage-4):
+	        ┌----------┐
+	        | mines    |     quarries
+	miners -┴--→|      └-------→|
+	            ↓               ↓
+	           ore            rock*
+	furnace ---→|               |←------ crusher
+	            ↓           ┌---┴---┐
+	          metal*        |       |
+	m_smiths --→|           ↓       ↓
+	anvils ----→|          gems*  gravel*
+	hammers ---→|           |←---------------- jewelers
+	            └-----┬-----┘
+	                  |
+	                  ↓
+	               products*
+
+
+myCarpenter (stage-3):
+	                 forest
+	    lumberjacks --→|
+	                   ↓
+	                 wood
+	    sawblades ----→|
+	                   ↓         nails
+	                lumber*        |
+	                   |←----------┘
+	                   ↓
+	                Products*
+
+
+myWeaver (stage-2):
+	                             wool*(from farmer)
+	    spinner(from carpenter)--→|
+	                              |
+	                              ↓
+  wood(from carpenter)  ┌-------thread    jewels(from blacksmith)
+	  |                 ↓         |         |
+	  └-------------------→loom--→|←--------┘
+	                              ↓
+	                           Products*
+
+
+myArmy (stage-5):
+	                    tax
+	    ┌----------------┤
+	    |                ↓
+	    |              money
+	    |                |
+	 ┌--┼-------┬--------┴┬-------------------┐
+	 |  |       |         |                   |
+	 |  | farms | weavers | smithies          |    carpenters
+	 |  |   |   |    |    |    |              |        |
+	 |  |   |   |    |    |    ├--------┐     |        |
+	 |  |   |←--┘    |←---┴---→|        |←----┴-------→|
+	 ↓  |   ↓        ↓         ↓        ↓              ↓
+	men └-→food   clothes    armor    weapons     big_weapons
+	 |      |         |        |        |              |
+	 └------┴---------┴----┬---┴--------┴--------------┘
+	                       |
+	                       ↓
+	                     battle
+
+
+  Hazard              |  Direction  |  Remedy
+
+  Dragons             |  North      |  Wizards
+  MegaScorpions       |  North      |  Wizards
+  Thieves             |  East       |  Dogs
+  Birds               |  South      |  Cats
+  Rats                |  South      |  Cats
+  Enemy Country       |  West       |  Knights
+
+
+  Defenders           |  Side effects
+
+  Wizards             |  Occasionally get their spells mixed up
+  Dogs                |  Difficult to get
+  Cats                |  Difficult to get
+  Knights             |  N/A
+
+
+  People              |  Usage
+
+  Wizards             |  Defend against Dragons and MegaScorpions, Somtimes mess up on their spells
+  Knights             |  Defend against raiding countries
+  Traveling Salesman  |  Sells rare things for cheap
+  Mechanics           |  Make miraculous inventions
+  Duke of Wealthyton  |  Usually in charge of you
+  King of Wealthyland |  The most important man in the game
+
+  Overall storyline:  The King of Wealthyland is concerned about Wealthyton (a major county of his country).
+                          For the past 5 (or 6 or 7) months, Wealthyton has not paid its full taxes.
+                          And to make maters worse, there are rumors that Wealthyton is raising its own army.
+                          He has sent a spy (the player) disguised as a normal worker, to find out what is happening in Wealthyton.
+                          The player will report back to the King at the end of every stage, and tell him what he thinks is wrong:
+                            Invaders, Pests, Monsters, or even if the Duke is trying to revolt
+                          Stage 5 will be any of the following:
+                            King vs Duke
+                            Duke vs Pests
+                            King and Duke vs Invading Country
+                            Kings knights and Kings wizards vs monsters
+                            Duke vs Thieves and Raiders
