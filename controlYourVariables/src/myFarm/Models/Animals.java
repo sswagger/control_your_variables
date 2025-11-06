@@ -1,26 +1,25 @@
 package myFarm.Models;
 
+
 public class Animals {
 	//=== Variables ===\\
 	private final String name;
 	private final Crops[] eatableCrops;
 	private final Products[] producible;
 	private final int size;
-	private final int numEat;
 	private int numAnimals;
 
 	//=== Constructors ===\\
-	public Animals(String name, Crops[] eatableCrops, Products[]producible, int size,  int numEat) {
+	public Animals(String name, Crops[] eatableCrops, Products[] producible, int size) {
 		this.name = name;
 		this.eatableCrops = eatableCrops;
 		this.producible = producible;
-		this.numEat = numEat;
 		this.size = size;
 	}
 
 	//=== Functions ===\\
 	public void eat() {
-		int numToEat = this.numAnimals * this.numEat;
+		int numToEat = this.numAnimals * this.size;
 
 		for (Crops i: this.eatableCrops) {
 			if (i.getNumCrops() >= numToEat) {
@@ -35,19 +34,16 @@ public class Animals {
 		}
 
 		if (numToEat != 0) {
-			numAnimals -= numToEat;
+			numAnimals -= numToEat / this.numAnimals;
 		}
 	}
 	public void produceProduct(Products product) {
-		product.setNumProducts(product.getNumProducts() + (this.numAnimals * product.getNumProduce() * this.size));
+		product.setNumProducts((int) (product.getNumProducts() + (this.numAnimals * product.getNumProduce() * this.size)));
 	}
 
 	//=== Getters and Setters ===\\
 	public String getName() {
 		return name;
-	}
-	public int getNumEat() {
-		return numEat;
 	}
 	public Crops[] getEatableCrops() {
 		return eatableCrops;

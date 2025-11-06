@@ -3,11 +3,11 @@ package myFarm.Models;
 public class Products {
 	//=== Variables ===\\
 	private final String name;
-	private final int numProduce;
+	private final double numProduce;
 	private int numProducts;
 
 	//=== Constructors ===\\
-	public Products(String name, int numProduce) {
+	public Products(String name, double numProduce) {
 		this.name = name;
 		this.numProduce = numProduce;
 	}
@@ -22,7 +22,7 @@ public class Products {
 	public void setNumProducts(int numProducts) {
 		this.numProducts = numProducts;
 	}
-	public int getNumProduce() {
+	public double getNumProduce() {
 		return numProduce;
 	}
 }

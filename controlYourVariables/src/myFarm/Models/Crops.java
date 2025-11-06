@@ -1,30 +1,39 @@
 package myFarm.Models;
 
 public class Crops {
-	//=== Variables ===\\
+	//=== Attributes ===\\
 	private final String name;
-	private int NumCrops;
-	private int NumPlanted;
+	private final int profit;
+	private int numCrops;
+	private int numPlanted;
 
 	//=== Constructors ===\\
-	public Crops(String name) {
+	public Crops(String name, int profit) {
 		this.name = name;
+		this.profit = profit;
+	}
+
+	//=== Methods ===\\
+	public void plantCrops(int numPlanted) {
+		this.numCrops -= numPlanted;
+		this.numPlanted = numPlanted;
+	}
+	public void harvestCrops() {
+		this.numCrops += this.numPlanted * this.profit;
+		this.numPlanted = 0;
 	}
 
 	//=== Getters and Setters ===\\
 	public int getNumCrops() {
-		return NumCrops;
+		return this.numCrops;
 	}
 	public void setNumCrops(int numCrops) {
-		NumCrops = numCrops;
+		this.numCrops = numCrops;
 	}
 	public int getNumPlanted() {
-		return NumPlanted;
-	}
-	public void setNumPlanted(int numPlanted) {
-		NumPlanted = numPlanted;
+		return this.numPlanted;
 	}
 	public String getName() {
-		return name;
+		return this.name;
 	}
 }
