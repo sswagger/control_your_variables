@@ -94,7 +94,7 @@ myArmy (stage-5):
 
   People              |  Usage
 
-  Wizards             |  Defend against Dragons and MegaScorpions, Somtimes mess up on their spells
+  Wizards             |  Defend against Dragons and MegaScorpions, Sometimes mess up on their spells
   Knights             |  Defend against raiding countries
   Traveling Salesman  |  Sells rare things for cheap
   Mechanics           |  Make miraculous inventions
@@ -113,3 +113,7 @@ myArmy (stage-5):
                             King vs Invading Country
                             King's knights and King's wizards vs monsters
                             Duke vs Thieves and Raiders
+
+NEW IDEAS:
+    make games in random order
+        games = farming, blacksmith, weaver, and carpenter

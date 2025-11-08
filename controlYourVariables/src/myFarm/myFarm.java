@@ -1,10 +1,11 @@
 package myFarm;
+import baseModels.IO;
 import myFarm.Models.*;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class myFarm {
+public class myFarm extends IO {
 	public static void main(String[] args) {
 		Map<String, Crops> crops = new HashMap<>();
 		crops.put("Wheat", new Crops("Wheat", 10));
