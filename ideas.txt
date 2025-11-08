@@ -110,6 +110,6 @@ myArmy (stage-5):
                           Stage 5 will be any of the following:
                             King vs Duke
                             Duke vs Pests
-                            King and Duke vs Invading Country
-                            Kings knights and Kings wizards vs monsters
+                            King vs Invading Country
+                            King's knights and King's wizards vs monsters
                             Duke vs Thieves and Raiders

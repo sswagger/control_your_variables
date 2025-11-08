@@ -1,28 +1,20 @@
-import myFarm.Models.Animals;
-import myFarm.Models.Crops;
-import myFarm.Models.Products;
-
-import java.io.IOException;
-
+import java.io.*;
+import java.nio.file.FileSystems;
 
 public class Initial {
 	public static void main(String[] args) {
-//		try {
-//			ProcessBuilder processBuilder = new ProcessBuilder();
-//			if (System.getProperty("os.name").toLowerCase().contains("win")) {
-//				processBuilder.command("cmd.exe"); // Windows
-//			}
-//			else if (System.getProperty("os.name").toLowerCase().contains("nix") || System.getProperty("os.name").toLowerCase().contains("nux")) {
-//				processBuilder.command("gnome-terminal"); // Linux
-//			}
-//			else {
-//				processBuilder.command("open", "-a", "Terminal"); // macOS
-//			}
-//			Process process = processBuilder.start();
-//		}
-//		catch (IOException e) {
-//			System.out.println(e.getMessage());
-//		}
+		try {
+			String currDirectory = System.getProperty("user.dir");
+			String separator = FileSystems.getDefault().getSeparator();
 
+			ProcessBuilder processBuilder = new ProcessBuilder();
+			if (System.getProperty("os.name").toLowerCase().contains("win")) {
+				processBuilder.command("cmd", "/C", "start cmd.exe -ArgumentList \"/k java .\\controlYourVariables\\src\\Main.java\""); // Windows
+			}
+			Process process = processBuilder.start();
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
