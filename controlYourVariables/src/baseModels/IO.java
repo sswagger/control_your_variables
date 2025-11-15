@@ -1,11 +1,14 @@
 package baseModels;
+
 import java.util.Scanner;
 
-
 public class IO {
+	//=== Attributes ===\\
+	public static final String neutral = "\33[0m";
 	protected String input;
 	protected Scanner sc = new Scanner(System.in);
 
+	//=== Methods ===\\
 	protected int inputInt(String prompt) {
 		while (true) {
 			System.out.print(prompt + ":  ");
@@ -38,7 +41,6 @@ public class IO {
 			}
 		}
 	}
-
 	protected String inputString(String prompt) {
 		System.out.print(prompt + ":  ");
 		this.input = sc.findInLine("(?<=: {2}).*");
@@ -65,5 +67,12 @@ public class IO {
 
 			System.out.println("Invalid Option, Try Again.");
 		}
+	}
+	// based on a rgb input, return the ansi code for various colors
+	public static String rgbText(int red, int green, int blue) {
+		return String.format("\33[38;2;%d;%d;%dm", red, green, blue);
+	}
+	public static String rgbBackground(int red, int green, int blue) {
+		return String.format("\33[48;2;%d;%d;%dm", red, green, blue);
 	}
 }
