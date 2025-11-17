@@ -1,90 +1,64 @@
 package myFarm;
+
 import baseModels.IO;
 import myFarm.Models.*;
-import java.util.HashMap;
-import java.util.Map;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
 
 public class myFarm extends IO {
+	//=== Variables ===\\
+	private static String[] months =  new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	private static int monthI;
+	private static int year;
+	private static String infoColor;
+	private static String inputColor;
+	private static String dangerColor;
+
+	//=== Functions ===\\
+	private static void printEquip() {
+		// fixme: loop through crops, animals, and products
+		System.out.println("your equipment here");
+	}
+	private static void year() {
+		boolean hasQuit = false;
+
+		if (inputStringBool("Do you want instructions?", new String[]{"y"})) {
+			// Todo: add instructions
+		}
+		while (!hasQuit) {
+			while (monthI < 4) {
+				if (inputStringBool("Do you want to plant your crops?", new String[]{"y"})) {
+					// todo: plant crops
+				}
+			}
+		}
+		// Todo: finish the year
+	}
+
+	//=== Main Function ===\\
 	public static void main(String[] args) {
-		Map<String, Crops> crops = new HashMap<>();
-		crops.put("Wheat", new Crops("Wheat", 10));
-		crops.put("Oats", new Crops("Oat", 10));
-		crops.put("Hay", new Crops("Hay", 10));
-		crops.put("Corn", new Crops("Corn", 10));
-		crops.put("Barley", new Crops("Barley", 10));
+		ArrayList<Crops> crops = new ArrayList<>();
+		//crops.put("Wheat", new Crops("Wheat", 10));
 
-		Map<String, Products> products = new HashMap<>();
-		products.put("Leather", new Products("Leather", 2));
-		products.put("Milk", new Products("Milk", 2));
-		products.put("Meat", new Products("Meat", 2));
-		products.put("Wool", new Products("Wool", 2));
+		ArrayList<Products> products = new ArrayList<>();
+		//products.put("Leather", new Products("Leather", 2));
 
-		Map<String, Animals> animals = new HashMap<>();
-		animals.put(
-			"Horses",
-			new Animals(
-				"Horse",
-				new Crops[]{crops.get("Wheat"), crops.get("Oats")},
-				new Products[]{products.get("Leather")},
-				5
-			)
-		);
-		animals.put(
-			"Cattle",
-			new Animals(
-				"Cattle",
-				new Crops[]{crops.get("Oats"), crops.get("Hay")},
-				new Products[]{products.get("Leather"), products.get("Milk"), products.get("Meat")},
-			5
-			)
-		);
-		animals.put(
-			"Sheep",
-			new Animals(
-				"Sheep",
-				new Crops[]{crops.get("Corn")},
-				new Products[]{products.get("Leather")},
-				5
-			)
-		);
-		animals.put(
-			"Chickens",
-			new Animals(
-				"Chicken",
-				new Crops[]{crops.get("Barley"), crops.get("Corn")},
-				new Products[]{products.get("Leather")},
-				5
-			)
-		);
-		animals.put(
-				"Turkeys",
-				new Animals(
-						"Turkey",
-						new Crops[]{crops.get("Barley"), crops.get("Corn")},
-						new Products[]{products.get("Leather")},
-						5
-				)
-		);
-		animals.put(
-				"Pigs",
-				new Animals(
-						"Pig",
-						new Crops[]{crops.get("Wheat"), crops.get("Oats"), crops.get("Hay"), crops.get("Corn"), crops.get("Barley")},
-						new Products[]{products.get("Leather")},
-						5
-				)
-		);
-		animals.put(
-				"Goats",
-				new Animals(
-						"Goat",
-						new Crops[]{crops.get("Wheat"), crops.get("Oats"), crops.get("Hay"), crops.get("Corn"), crops.get("Barley")},
-						new Products[]{products.get("Leather")},
-						5
-				)
-		);
+		ArrayList<Animals> animals = new ArrayList<>();
+//		animals.put(
+//			"Horses",
+//			new Animals(
+//				"Horse",
+//				new Crops[]{crops.get("Wheat"), crops.get("Oats")},
+//				new Products[]{products.get("Leather")},
+//				5
+//			)
+//		);
 
-		System.out.println("You made it to myFarm.java!");
+		monthI = 0;
+		year = 0;
+		infoColor = rgbText(255, 255, 0) + rgbBackground(60, 140, 0);
+		inputColor = rgbText(250, 250, 250) + rgbBackground(55, 150, 0);
+		dangerColor = rgbText(255, 255, 0) + rgbBackground(210, 0, 0);
 	}
 }
