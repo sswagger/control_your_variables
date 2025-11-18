@@ -1,25 +1,27 @@
-{
-  "crops":[
-    {"name":"Wheat","profit":10},
-    {"name":"Oat","profit":10},
-    {"name":"Hay","profit":10},
-    {"name":"Corn","profit":10},
-    {"name":"Barley","profit":10}
-  ],
-  "products":[
-    {"name":"Leather","numProduce":2},
-    {"name":"Milk","numProduce":2},
-    {"name":"Meat","numProduce":2},
-    {"name":"Wool","numProduce":2},
-    {"name":"Eggs","numProduce":2}
-  ],
-  "animals":[
-    {"name":"Horse","food":[0,1],"products":[0],"size":5},
-    {"name":"Cattle","food":[1,2],"products":[0,1,2],"size":5},
-    {"name":"Sheep","food":[3],"products":[3],"size":5},
-    {"name":"Chickens","food":[4,3],"products":[4],"size":5},
-    {"name":"Turkeys","food":[4,3],"products":[4],"size":5},
-    {"name":"Pigs","food":[0,1,2,3,4],"products":[],"size":5},
-    {"name":"Goats","food":[0,1,2,3,4],"products":[1],"size":5}
-  ]
-}
+The crops
+$crops=
+    $name=Wheat;$profit=10;
+    $name=Oat;$profit=10;
+    $name=Hay;$profit=10;
+    $name=Corn;$profit=10;
+    $name=Barley;$profit=10;
+
+The products
+$products=
+    $name=Leather;$numProduce=2;
+    $name=Milk;$numProduce=2;
+    $name=Meat;$numProduce=2;
+    $name=Wool;$numProduce=2;
+    $name=Eggs;$numProduce=2;
+
+The animals
+$animals=
+    $name=Horse;$crops=[0,1];$products=[0];$size=5;
+    $name=Cattle;$crops=[1,2];$products=[0,1,2];$size=5;
+    $name=Sheep;$crops=[3];$products=[3];$size=5;
+    $name=Chickens;$crops=[4,3];$products=[4];$size=5;
+    $name=Turkeys;$crops=[4,3];$products=[4];$size=5;
+    $name=Pigs;$crops=[0,1,2,3,4];$products=[];$size=5;
+    $name=Goats;$crops=[0,1,2,3,4];$products=[1];$size=5;
+
+I can write anything I want here

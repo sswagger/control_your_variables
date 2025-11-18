@@ -1,6 +1,5 @@
 package myFarm.Models;
 
-
 public class Animals {
 	//=== Variables ===\\
 	private final String name;

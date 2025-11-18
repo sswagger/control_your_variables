@@ -4,7 +4,11 @@ import baseModels.IO;
 import myFarm.Models.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class myFarm extends IO {
 	//=== Variables ===\\
@@ -39,10 +43,20 @@ public class myFarm extends IO {
 	//=== Main Function ===\\
 	public static void main(String[] args) {
 		ArrayList<Crops> crops = new ArrayList<>();
-		//crops.put("Wheat", new Crops("Wheat", 10));
+		ArrayList<ArrayList<String>> newCrops = readData(System.getProperty("user.dir") + "/controlYourVariables/src/myFarm/", "crops", new ArrayList<>(Arrays.asList("name", "profit")));
+		if (newCrops != null) {
+			for (ArrayList<String> crop : newCrops) {
+				crops.add(new Crops(crop.get(0), Integer.parseInt(crop.get(1))));
+			}
+		}
 
 		ArrayList<Products> products = new ArrayList<>();
-		//products.put("Leather", new Products("Leather", 2));
+		ArrayList<ArrayList<String>> newProducts = readData(System.getProperty("user.dir") + "/controlYourVariables/src/myFarm/", "products", new ArrayList<>(Arrays.asList("name", "numProduce")));
+		if (newProducts != null) {
+			for (ArrayList<String> product : newProducts) {
+				products.add(new Products(product.get(0), Integer.parseInt(product.get(1))));
+			}
+		}
 
 		ArrayList<Animals> animals = new ArrayList<>();
 //		animals.put(

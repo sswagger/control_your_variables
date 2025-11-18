@@ -1,6 +1,17 @@
 package baseModels;
 
+import myFarm.Models.Crops;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class IO {
 	//=== Variables ===\\
@@ -90,5 +101,41 @@ public class IO {
 	}
 	public static String rgbBackground(int red, int green, int blue) {
 		return String.format("\33[48;2;%d;%d;%dm", red, green, blue);
+	}
+	// read from data.txt
+	public static ArrayList<ArrayList<String>> readData(String path, String key, ArrayList<String> subKeys) {
+		try (BufferedReader data = new BufferedReader(new FileReader(path + "/data.txt"))) {
+			String firstIndentLine = data.readLine();
+			while (firstIndentLine != null) {
+				Pattern varPat = Pattern.compile("(?<=\\$).*?(?==)", Pattern.CASE_INSENSITIVE);
+				Matcher varMatcher = varPat.matcher(firstIndentLine);
+
+				if (varMatcher.find()) {
+					if (varMatcher.group().equals(key)) {
+						String secondIndentLine = data.readLine();
+						ArrayList<ArrayList<String>> foundObj = new ArrayList<>();
+						while (!secondIndentLine.isEmpty()) {
+							ArrayList<String> foundVals = new ArrayList<>();
+							for (String subKey : subKeys) {
+								Pattern pat = Pattern.compile("(?<=\\$" + subKey + "=).*?(?=;)", Pattern.CASE_INSENSITIVE);
+								Matcher match = pat.matcher(secondIndentLine);
+								if (match.find()) {
+									foundVals.add(match.group());
+								}
+							}
+							foundObj.add(foundVals);
+							secondIndentLine = data.readLine();
+						}
+						return foundObj;
+					}
+				}
+				firstIndentLine = data.readLine();
+			}
+			return null;
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
+			return null;
+		}
 	}
 }
