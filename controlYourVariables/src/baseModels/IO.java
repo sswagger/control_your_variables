@@ -20,7 +20,8 @@ public class IO {
 	protected static int inputInt(String prompt) {
 		while (true) {
 			System.out.print(prompt + ":  ");
-			input = sc.findInLine("(?<=: {2}).*");
+			input = sc.findInLine(".*");
+			sc.nextLine();
 			try {
 				return Integer.parseInt(input);
 			}
@@ -36,7 +37,9 @@ public class IO {
 	protected static Double inputDouble(String prompt) {
 		while (true) {
 			System.out.print(prompt + ":  ");
-			input = sc.findInLine("(?<=: {2}).*");
+			input = sc.findInLine(".*");
+			sc.nextLine();
+
 			try {
 				return Double.parseDouble(input);
 			}
@@ -51,7 +54,9 @@ public class IO {
 	}
 	protected static String inputString(String prompt) {
 		System.out.print(prompt + ":  ");
-		input = sc.findInLine("(?<=: {2}).*");
+		input = sc.findInLine(".*");
+		sc.nextLine();
+
 		if  (input.equalsIgnoreCase("h")) {
 			// Todo: add help
 			;
@@ -61,7 +66,8 @@ public class IO {
 	protected static String inputString(String prompt, String[] options) {
 		while (true) {
 			System.out.print(prompt + ":  ");
-			input = sc.findInLine("(?<=: {2}).*");
+			input = sc.findInLine(".*");
+			sc.nextLine();
 
 			if (input.equalsIgnoreCase("h")) {
 				// Todo: add help
@@ -78,13 +84,13 @@ public class IO {
 	}
 	protected static boolean inputStringBool(String prompt, String[] options) {
 		System.out.print(prompt + ":  ");
-		input = sc.findInLine("(?<=: {2}).*");
+		input = sc.findInLine(".*");
+		sc.nextLine();
 
 //		if (input.equalsIgnoreCase("h")) {
 //			// Todo: add help
 //			;
 //		}
-
 		for (String option : options) {
 			if (option.equalsIgnoreCase(input)) {
 				return true;
@@ -93,14 +99,14 @@ public class IO {
 		return false;
 	}
 	// based on a rgb input, return the ansi code for various colors
-	public static String rgbText(int red, int green, int blue) {
+	protected static String rgbText(int red, int green, int blue) {
 		return String.format("\33[38;2;%d;%d;%dm", red, green, blue);
 	}
-	public static String rgbBackground(int red, int green, int blue) {
+	protected static String rgbBackground(int red, int green, int blue) {
 		return String.format("\33[48;2;%d;%d;%dm", red, green, blue);
 	}
 	// read from data.txt
-	public static ArrayList<ArrayList<String>> readData(String path, String key, ArrayList<String> subKeys) {
+	protected static ArrayList<ArrayList<String>> readData(String path, String key, ArrayList<String> subKeys) {
 		try (BufferedReader data = new BufferedReader(new FileReader(path + "/data.txt"))) {
 			String firstIndentLine = data.readLine();
 			while (firstIndentLine != null) {
@@ -133,7 +139,7 @@ public class IO {
 			return null;
 		}
 	}
-	public static String readData(String path, String key) {
+	protected static String readData(String path, String key) {
 		try (BufferedReader data = new BufferedReader(new FileReader(path + "/data.txt"))) {
 			String firstIndentLine = data.readLine();
 			while (firstIndentLine != null) {
