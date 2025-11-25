@@ -8,4 +8,7 @@ public class myFarmMod {
 		return;
 	}
 
+	public static void start() {
+
+	}
 }

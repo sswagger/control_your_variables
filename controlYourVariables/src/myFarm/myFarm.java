@@ -8,9 +8,10 @@ import java.util.Arrays;
 
 public class myFarm extends IO {
 	//=== Variables ===\\
-	private static String[] months =  new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	private static ArrayList<String> months =  new ArrayList<>(Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
 	private static int monthI;
 	private static int year;
+	private static int fields;
 	private static String infoColor;
 	private static String inputColor;
 	private static String dangerColor;
@@ -27,20 +28,23 @@ public class myFarm extends IO {
 		boolean hasQuit = false;
 
 		if (inputStringBool("Do you want instructions?", new String[]{"y"})) {
-			// Todo: add instructions
+			System.out.println(infoColor + "You said yes!" + neutral);  // Todo: add instructions
 		}
-//		while (!hasQuit) {
-//			while (monthI < 4) {
-//				if (inputStringBool("Do you want to plant your crops?", new String[]{"y"})) {
-//					// todo: plant crops
-//				}
-//			}
-//		}
+		while (!hasQuit) {
+			while (monthI < 4) {
+				if (inputStringBool("Do you want to plant your crops?", new String[]{"y"})) {
+					for (Crops crop : crops) {
+						if (crop.getNumCrops() > 0) {
+							crop.plantCrops(inputInt("How many " + crop + " do you want to plant (you have " + crop.getNumCrops() + ")?"));
+						}
+					}
+				}
+				break;  //testing purposes
+			}
+			break;  //testing purposes
+		}
+		System.out.println(crops.getFirst().getNumCrops());  // test
 		// Todo: finish the year
-		System.out.println(crops);
-		System.out.println(products);
-		System.out.println(animals);
-		System.out.println(months[monthI]);
 	}
 
 	//=== Main Function ===\\
@@ -53,9 +57,7 @@ public class myFarm extends IO {
 		try {
 			monthI = Integer.parseInt(readData(dataPath, "monthI"));
 			year = Integer.parseInt(readData(dataPath, "yearI"));
-			infoColor = rgbText(255, 255, 0) + rgbBackground(60, 140, 0);
-			inputColor = rgbText(250, 250, 250) + rgbBackground(55, 150, 0);
-			dangerColor = rgbText(255, 255, 0) + rgbBackground(210, 0, 0);
+			fields = Integer.parseInt(readData(dataPath, "fields"));
 		}
 		catch (Exception e) {
 			System.out.println("Cannot read simple data, check file format");
@@ -106,6 +108,11 @@ public class myFarm extends IO {
 				animals.add(new Animals(animal.get(0), cropList, productList, Integer.parseInt(animal.get(3))));
 			}
 		}
+
+		infoColor = rgbText(255, 255, 0) + rgbBackground(60, 140, 0);
+		inputColor = rgbText(250, 250, 250) + rgbBackground(55, 150, 0);
+		dangerColor = rgbText(255, 255, 0) + rgbBackground(210, 0, 0);
+		crops.getFirst().setNumCrops(80);
 
 		year();
 	}

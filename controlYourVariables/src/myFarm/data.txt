@@ -1,5 +1,6 @@
 $monthI=0
 $yearI=0
+$fields=2
 
 $crops=
     $name=Wheat;$profit=10;

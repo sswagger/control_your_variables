@@ -2,7 +2,7 @@ $crops=
     $name=Millet;$profit=100;
 
 $products=
-    $name=Nails;$numProduce=8;
+    $name=Hair;$numProduce=8;
 
 $animals=
     $name=Elephant;$crops=0;$products=0;$size=8;

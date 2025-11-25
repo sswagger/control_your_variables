@@ -9,7 +9,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class IO {
 	//=== Variables ===\\
 	public static final String neutral = "\33[0m";
