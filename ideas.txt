@@ -34,7 +34,7 @@ myCarpenter (stage-3):
 	                   ↓
 	                 wood
 	    sawblades ----→|
-	                   ↓         nails
+	                   ↓         nails (from smithy)
 	                lumber*        |
 	                   |←----------┘
 	                   ↓
@@ -73,7 +73,7 @@ myArmy (stage-5):
 	                       ↓
 	                     battle
 
-
+________________________________________________________________________________________________________________________
   Hazard              |  Direction  |  Remedy
 
   Dragons             |  North      |  Wizards
@@ -83,7 +83,7 @@ myArmy (stage-5):
   Rats                |  South      |  Cats
   Enemy Country       |  West       |  Knights
 
-
+________________________________________________________________________________________________________________________
   Defenders           |  Side effects
 
   Wizards             |  Occasionally get their spells mixed up
@@ -91,7 +91,7 @@ myArmy (stage-5):
   Cats                |  Difficult to get
   Knights             |  N/A
 
-
+________________________________________________________________________________________________________________________
   People              |  Usage
 
   Wizards             |  Defend against Dragons and MegaScorpions, Sometimes mess up on their spells
@@ -114,6 +114,7 @@ myArmy (stage-5):
                             King's knights and King's wizards vs monsters
                             Duke vs Thieves and Raiders
 
+________________________________________________________________________________________________________________________
 NEW IDEAS:
     make games in random order
         games = farming, blacksmith, weaver, and carpenter

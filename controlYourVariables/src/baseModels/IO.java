@@ -1,11 +1,8 @@
 package baseModels;
 
-import myFarm.Models.Crops;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -83,10 +80,10 @@ public class IO {
 		System.out.print(prompt + ":  ");
 		input = sc.findInLine("(?<=: {2}).*");
 
-		if (input.equalsIgnoreCase("h")) {
-			// Todo: add help
-			;
-		}
+//		if (input.equalsIgnoreCase("h")) {
+//			// Todo: add help
+//			;
+//		}
 
 		for (String option : options) {
 			if (option.equalsIgnoreCase(input)) {
@@ -110,28 +107,51 @@ public class IO {
 				Pattern varPat = Pattern.compile("(?<=\\$).*?(?==)", Pattern.CASE_INSENSITIVE);
 				Matcher varMatcher = varPat.matcher(firstIndentLine);
 
-				if (varMatcher.find()) {
-					if (varMatcher.group().equals(key)) {
-						String secondIndentLine = data.readLine();
-						ArrayList<ArrayList<String>> foundObj = new ArrayList<>();
-						while (!secondIndentLine.isEmpty()) {
-							ArrayList<String> foundVals = new ArrayList<>();
-							for (String subKey : subKeys) {
-								Pattern pat = Pattern.compile("(?<=\\$" + subKey + "=).*?(?=;)", Pattern.CASE_INSENSITIVE);
-								Matcher match = pat.matcher(secondIndentLine);
-								if (match.find()) {
-									foundVals.add(match.group());
-								}
+				if (varMatcher.find() && varMatcher.group().equals(key)) {
+					String secondIndentLine = data.readLine();
+					ArrayList<ArrayList<String>> foundObj = new ArrayList<>();
+					while (secondIndentLine != null && !secondIndentLine.isEmpty()) {
+						ArrayList<String> foundVals = new ArrayList<>();
+						for (String subKey : subKeys) {
+							Pattern pat = Pattern.compile("(?<=\\$" + subKey + "=).*?(?=;)", Pattern.CASE_INSENSITIVE);
+							Matcher match = pat.matcher(secondIndentLine);
+							if (match.find()) {
+								foundVals.add(match.group());
 							}
-							foundObj.add(foundVals);
-							secondIndentLine = data.readLine();
 						}
-						return foundObj;
+						foundObj.add(foundVals);
+						secondIndentLine = data.readLine();
 					}
+					return foundObj;
 				}
 				firstIndentLine = data.readLine();
 			}
 			return null;
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
+			return null;
+		}
+	}
+	public static String readData(String path, String key) {
+		try (BufferedReader data = new BufferedReader(new FileReader(path + "/data.txt"))) {
+			String firstIndentLine = data.readLine();
+			while (firstIndentLine != null) {
+				Pattern varPat = Pattern.compile("(?<=\\$).*?(?==)", Pattern.CASE_INSENSITIVE);
+				Matcher varMatcher = varPat.matcher(firstIndentLine);
+
+				if (varMatcher.find()) {
+					if (varMatcher.group().equals(key)) {
+						Pattern pat = Pattern.compile("(?<==).*", Pattern.CASE_INSENSITIVE);
+						Matcher match = pat.matcher(firstIndentLine);
+						if (match.find()) {
+							return match.group();
+						}
+					}
+				}
+				firstIndentLine = data.readLine();
+			}
+			return "";
 		}
 		catch (IOException e) {
 			System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
