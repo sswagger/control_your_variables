@@ -22,18 +22,24 @@ public class Crops {
 		this.numCrops += this.numPlanted * this.profit;
 		this.numPlanted = 0;
 	}
+	@Override
+	public String toString() {
+		return this.name;
+	}
 
-	//=== Getters and Setters ===\\
+	//=== Getters ===\\
 	public int getNumCrops() {
 		return this.numCrops;
-	}
-	public void setNumCrops(int numCrops) {
-		this.numCrops = numCrops;
 	}
 	public int getNumPlanted() {
 		return this.numPlanted;
 	}
 	public String getName() {
 		return this.name;
+	}
+
+	//=== Setters ===\\
+	public void setNumCrops(int numCrops) {
+		this.numCrops = numCrops;
 	}
 }

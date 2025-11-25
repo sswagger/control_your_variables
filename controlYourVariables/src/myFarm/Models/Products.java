@@ -12,17 +12,25 @@ public class Products {
 		this.numProduce = numProduce;
 	}
 
-	//=== Getters and Setters ===\\
+	//=== Methods ===\\
+	@Override
+	public String toString() {
+		return this.name;
+	}
+
+	//=== Getters ===\\
 	public String getName() {
 		return name;
 	}
 	public int getNumProducts() {
 		return numProducts;
 	}
-	public void setNumProducts(int numProducts) {
-		this.numProducts = numProducts;
-	}
 	public double getNumProduce() {
 		return numProduce;
+	}
+
+	//=== Setters ===\\
+	public void setNumProducts(int numProducts) {
+		this.numProducts = numProducts;
 	}
 }

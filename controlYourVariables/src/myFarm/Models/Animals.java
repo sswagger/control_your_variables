@@ -1,22 +1,25 @@
 package myFarm.Models;
 
+import java.util.ArrayList;
+
+
 public class Animals {
-	//=== Variables ===\\
+	//=== Attributes ===\\
 	private final String name;
-	private final Crops[] eatableCrops;
-	private final Products[] producible;
+	private final ArrayList<Crops> eatableCrops;
+	private final ArrayList<Products> producible;
 	private final int size;
 	private int numAnimals;
 
 	//=== Constructors ===\\
-	public Animals(String name, Crops[] eatableCrops, Products[] producible, int size) {
+	public Animals(String name, ArrayList<Crops> eatableCrops, ArrayList<Products> producible, int size) {
 		this.name = name;
 		this.eatableCrops = eatableCrops;
 		this.producible = producible;
 		this.size = size;
 	}
 
-	//=== Functions ===\\
+	//=== Methods ===\\
 	public void eat() {
 		int numToEat = this.numAnimals * this.size;
 
@@ -39,24 +42,30 @@ public class Animals {
 	public void produceProduct(Products product) {
 		product.setNumProducts((int) (product.getNumProducts() + (this.numAnimals * product.getNumProduce() * this.size)));
 	}
+	@Override
+	public String toString() {
+		return this.name;
+	}
 
-	//=== Getters and Setters ===\\
+	//=== Getters ===\\
 	public String getName() {
 		return name;
 	}
-	public Crops[] getEatableCrops() {
+	public ArrayList<Crops> getEatableCrops() {
 		return eatableCrops;
 	}
 	public int getNumAnimals() {
 		return numAnimals;
 	}
-	public void setNumAnimals(int numAnimals) {
-		this.numAnimals = numAnimals;
-	}
-	public Products[] getProducible() {
+	public ArrayList<Products> getProducible() {
 		return producible;
 	}
 	public int getSize() {
 		return size;
+	}
+
+	//=== Setters ===\\
+	public void setNumAnimals(int numAnimals) {
+		this.numAnimals = numAnimals;
 	}
 }
