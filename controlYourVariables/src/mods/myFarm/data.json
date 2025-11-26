@@ -1,0 +1,18 @@
+{
+  "monthI":1,
+  "yearI":1,
+  "fields":4,
+  "plows":4,
+  "barns":2,
+
+  "crops":[
+    {"name":"Grass","profit":"50"}
+  ],
+  "products":[
+    {"name":"Leather","numProduce":"2"},
+    {"name":"Hair","numProduce":"4"}
+  ],
+  "animals":[
+    {"name":"Elephants","crops":"0","products":"0,1","size":"20"}
+  ]
+}

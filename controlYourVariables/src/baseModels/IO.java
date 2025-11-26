@@ -1,19 +1,18 @@
 package baseModels;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class IO {
 	//=== Variables ===\\
-	public static final String neutral = "\33[0m";
+	protected static final String neutral = "\33[0m";
 	protected static String input;
 	protected static Scanner sc = new Scanner(System.in);
+	protected static String json;
 
 	//=== Functions ===\\
 	protected static int inputInt(String prompt) {
@@ -104,63 +103,46 @@ public class IO {
 	protected static String rgbBackground(int red, int green, int blue) {
 		return String.format("\33[48;2;%d;%d;%dm", red, green, blue);
 	}
-	// read from data.txt
+	// read from data.json
 	protected static ArrayList<ArrayList<String>> readData(String path, String key, ArrayList<String> subKeys) {
-		try (BufferedReader data = new BufferedReader(new FileReader(path + "/data.txt"))) {
-			String firstIndentLine = data.readLine();
-			while (firstIndentLine != null) {
-				Pattern varPat = Pattern.compile("(?<=\\$).*?(?==)", Pattern.CASE_INSENSITIVE);
-				Matcher varMatcher = varPat.matcher(firstIndentLine);
+		ArrayList<ArrayList<String>> data = new ArrayList<>();
 
-				if (varMatcher.find() && varMatcher.group().equals(key)) {
-					String secondIndentLine = data.readLine();
-					ArrayList<ArrayList<String>> foundObj = new ArrayList<>();
-					while (secondIndentLine != null && !secondIndentLine.isEmpty()) {
-						ArrayList<String> foundVals = new ArrayList<>();
-						for (String subKey : subKeys) {
-							Pattern pat = Pattern.compile("(?<=\\$" + subKey + "=).*?(?=;)", Pattern.CASE_INSENSITIVE);
-							Matcher match = pat.matcher(secondIndentLine);
-							if (match.find()) {
-								foundVals.add(match.group());
-							}
-						}
-						foundObj.add(foundVals);
-						secondIndentLine = data.readLine();
-					}
-					return foundObj;
-				}
-				firstIndentLine = data.readLine();
+		if (json.isEmpty()) {
+			readJSON(path);
+		}
+
+		JSONArray jsonKey = new JSONObject(json).getJSONArray(key);
+		for (int i = 0; i < jsonKey.length(); i++) {
+			ArrayList<String> dataSubKeys = new ArrayList<>();
+			for (String subKey : subKeys) {
+				JSONObject subJson = jsonKey.getJSONObject(i);
+				dataSubKeys.add(subJson.getString(subKey));
 			}
-			return null;
+			data.add(dataSubKeys);
 		}
-		catch (IOException e) {
-			System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
-			return null;
-		}
+		return data;
 	}
-	protected static String readData(String path, String key) {
-		try (BufferedReader data = new BufferedReader(new FileReader(path + "/data.txt"))) {
-			String firstIndentLine = data.readLine();
-			while (firstIndentLine != null) {
-				Pattern varPat = Pattern.compile("(?<=\\$).*?(?==)", Pattern.CASE_INSENSITIVE);
-				Matcher varMatcher = varPat.matcher(firstIndentLine);
-
-				if (varMatcher.find()) {
-					if (varMatcher.group().equals(key)) {
-						Pattern pat = Pattern.compile("(?<==).*", Pattern.CASE_INSENSITIVE);
-						Matcher match = pat.matcher(firstIndentLine);
-						if (match.find()) {
-							return match.group();
-						}
-					}
-				}
-				firstIndentLine = data.readLine();
-			}
-			return "";
+	protected static int readData(String path, String key) {
+		if (json.isEmpty()) {
+			readJSON(path);
 		}
-		catch (IOException e) {
-			System.out.println(e.getMessage() + Arrays.toString(e.getStackTrace()));
-			return null;
+		return new JSONObject(json).getInt(key);
+	}
+
+	//=== Private Functions ===\\
+	private static void readJSON(String path) {
+		// read json and create object
+		try (BufferedReader in = new BufferedReader(new FileReader(path + "data.json"))) {
+			String line;
+			StringBuilder sbJSON = new StringBuilder();
+
+			while ((line = in.readLine()) != null) {
+				sbJSON.append(line.trim());
+			}
+			json = sbJSON.toString();
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }

@@ -43,7 +43,9 @@ public class myFarm extends IO {
 			}
 			break;  //testing purposes
 		}
-		System.out.println(crops.getFirst().getNumCrops());  // test
+		System.out.println(crops);  // test
+		System.out.println(products);  // test
+		System.out.println(animals);  // test
 		// Todo: finish the year
 	}
 
@@ -54,59 +56,57 @@ public class myFarm extends IO {
 			dataPath = myFarmMod.dataPath;
 		}
 
-		try {
-			monthI = Integer.parseInt(readData(dataPath, "monthI"));
-			year = Integer.parseInt(readData(dataPath, "yearI"));
-			fields = Integer.parseInt(readData(dataPath, "fields"));
-		}
-		catch (Exception e) {
-			System.out.println("Cannot read simple data, check file format");
-			System.out.println(e.getClass() + ": " + e.getMessage());
-			return;
-		}
+//		try {
+//			monthI = Integer.parseInt(readData(dataPath, "monthI"));
+//			year = Integer.parseInt(readData(dataPath, "yearI"));
+//			fields = Integer.parseInt(readData(dataPath, "fields"));
+//		}
+//		catch (Exception e) {
+//			System.out.println("Cannot read simple data, check file format");
+//			System.out.println(e.getClass() + ": " + e.getMessage());
+//			return;
+//		}
 
 		crops = new ArrayList<>();
 		ArrayList<ArrayList<String>> newCrops = readData(dataPath, "crops", new ArrayList<>(Arrays.asList("name", "profit")));
-		if (newCrops != null) {
-			for (ArrayList<String> crop : newCrops) {
-				crops.add(new Crops(crop.get(0), Integer.parseInt(crop.get(1))));
-			}
+		for (ArrayList<String> crop : newCrops) {
+			crops.add(new Crops(crop.get(0), Integer.parseInt(crop.get(1))));
 		}
 
 		products = new ArrayList<>();
 		ArrayList<ArrayList<String>> newProducts = readData(dataPath, "products", new ArrayList<>(Arrays.asList("name", "numProduce")));
-		if (newProducts != null) {
-			for (ArrayList<String> product : newProducts) {
-				products.add(new Products(product.get(0), Integer.parseInt(product.get(1))));
-			}
+		for (ArrayList<String> product : newProducts) {
+			products.add(new Products(product.get(0), Integer.parseInt(product.get(1))));
 		}
 
 		animals = new ArrayList<>();
 		ArrayList<ArrayList<String>> newAnimals = readData(dataPath, "animals", new ArrayList<>(Arrays.asList("name", "crops", "products", "size")));
-		if (newAnimals != null) {
-			for (ArrayList<String> animal : newAnimals) {
-				ArrayList<Crops> cropList = new ArrayList<>();
-				ArrayList<Products> productList = new ArrayList<>();
-				for (int i = 0; i < animal.get(1).length(); i++) {
-					char cropI = animal.get(1).charAt(i);
-					try {
+		for (ArrayList<String> animal : newAnimals) {
+			ArrayList<Crops> cropList = new ArrayList<>();
+			ArrayList<Products> productList = new ArrayList<>();
+			for (int i = 0; i < animal.get(1).length(); i++) {
+				char cropI = animal.get(1).charAt(i);
+				try {
+					if (cropI != ',') {
 						cropList.add(crops.get(Integer.parseInt(cropI + "")));
 					}
-					catch (NumberFormatException e) {
-						System.out.println(dangerColor + "Cannot read crops! " + cropI + neutral);
-					}
 				}
-				for (int i = 0; i < animal.get(2).length(); i++) {
-					char productI = animal.get(2).charAt(i);
-					try {
+				catch (NumberFormatException e) {
+					System.out.println(dangerColor + "Cannot read crops! " + cropI + neutral);
+				}
+			}
+			for (int i = 0; i < animal.get(2).length(); i++) {
+				char productI = animal.get(2).charAt(i);
+				try {
+					if (productI != ',') {
 						productList.add(products.get(Integer.parseInt(productI + "")));
 					}
-					catch (NumberFormatException e) {
-						System.out.println(dangerColor + "Cannot read products! " + productI + neutral);
-					}
 				}
-				animals.add(new Animals(animal.get(0), cropList, productList, Integer.parseInt(animal.get(3))));
+				catch (NumberFormatException e) {
+					System.out.println(dangerColor + "Cannot read products! " + productI + neutral);
+				}
 			}
+			animals.add(new Animals(animal.get(0), cropList, productList, Integer.parseInt(animal.get(3))));
 		}
 
 		infoColor = rgbText(255, 255, 0) + rgbBackground(60, 140, 0);
