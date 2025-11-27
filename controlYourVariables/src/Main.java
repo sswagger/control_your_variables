@@ -1,11 +1,19 @@
+/**
+ * The main executable for the game; the app file
+**/
+
+//=== IMPORTED MODULES ===\\
 import baseModels.IO;
 import myFarm.myFarm;
 import mySmithy.mySmithy;
 import myWeaver.myWeaver;
 import myCarpenter.myCarpenter;
 
+//=== CLASS ===\\
 public class Main extends IO {
+	//=== MAIN FUNCTION ===\\
 	public static void main(String[] args) {
+		// give a basic overview of the game
 		System.out.println("Welcome to Control Your Variables!\n");
 		System.out.println("""
 				The King of Wealthyland is concerned about Wealthyton (a major section of his country).
@@ -23,6 +31,7 @@ public class Main extends IO {
 		inputString("Press Enter to Continue");
 		clearScreen();
 
+		// execute games one by one
 		myFarm.main(new String[]{});
 		mySmithy.main(new String[]{});
 		myWeaver.main(new String[]{});
