@@ -10,7 +10,7 @@ public class Initial {
 			if (System.getProperty("os.name").toLowerCase().contains("win")) {
 				String classPath = currPath + separator + "out" + separator + "production" + separator + "controlYourVariables";
 				String javaFile = "." + separator + "controlYourVariables" + separator + "src" + separator + "Main.java";
-				processBuilder.command("cmd", "/C", "start cmd.exe -ArgumentList \"/k java -cp \"" + classPath + "\" \"" + javaFile + "\""); // Windows
+				processBuilder.command("cmd", "/C", "start cmd.exe -ArgumentList \"/k java -cp \"" + classPath + ";lib" + separator + "*\" \"" + javaFile + "\""); // Windows
 			}
 			processBuilder.start();
 		}
