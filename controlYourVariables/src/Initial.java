@@ -1,6 +1,7 @@
 import java.io.*;
 import java.nio.file.FileSystems;
 
+// opens console app on Windows OS
 public class Initial {
 	public static void main(String[] args) {
 		try {

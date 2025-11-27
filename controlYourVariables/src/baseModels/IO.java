@@ -8,18 +8,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IO {
-	//=== Variables ===\\
-	protected static final String neutral = "\33[0m";
-	protected static String input;
-	protected static Scanner sc = new Scanner(System.in);
-	protected static String json;
+	//=== VARIABLES ===\\
+	protected static final String neutral = "\033[0m";
+	protected static String infoColor = "";
+	protected static String inputColor = "";
+	protected static String dangerColor = "";
+	private static String input = "";
+	private static final Scanner sc = new Scanner(System.in);
+	private static String json;
 
-	//=== Functions ===\\
+	//=== FUNCTIONS ===\\
+	// get input from System.in
 	protected static int inputInt(String prompt) {
 		while (true) {
-			System.out.print(prompt + ":  ");
-			input = sc.findInLine(".*");
-			sc.nextLine();
+			getInput(prompt);
 			try {
 				return Integer.parseInt(input);
 			}
@@ -28,15 +30,13 @@ public class IO {
 					// Todo: add help
 					continue;
 				}
-				System.out.println("Invalid Number, Try Again.");
+				System.out.println(dangerColor + "Invalid Number, Try Again." + neutral);
 			}
 		}
 	}
 	protected static Double inputDouble(String prompt) {
 		while (true) {
-			System.out.print(prompt + ":  ");
-			input = sc.findInLine(".*");
-			sc.nextLine();
+			getInput(prompt);
 
 			try {
 				return Double.parseDouble(input);
@@ -46,15 +46,12 @@ public class IO {
 					// Todo: add help
 					continue;
 				}
-				System.out.println("Invalid Decimal, Try Again.");
+				System.out.println(dangerColor + "Invalid Decimal, Try Again." + neutral);
 			}
 		}
 	}
 	protected static String inputString(String prompt) {
-		System.out.print(prompt + ":  ");
-		input = sc.findInLine(".*");
-		sc.nextLine();
-
+		getInput(prompt);
 		if  (input.equalsIgnoreCase("h")) {
 			// Todo: add help
 			;
@@ -63,9 +60,7 @@ public class IO {
 	}
 	protected static String inputString(String prompt, String[] options) {
 		while (true) {
-			System.out.print(prompt + ":  ");
-			input = sc.findInLine(".*");
-			sc.nextLine();
+			getInput(prompt);
 
 			if (input.equalsIgnoreCase("h")) {
 				// Todo: add help
@@ -77,13 +72,11 @@ public class IO {
 				}
 			}
 
-			System.out.println("Invalid Option, Try Again.");
+			System.out.println(dangerColor + "Invalid Option, Try Again." +  neutral);
 		}
 	}
 	protected static boolean inputStringBool(String prompt, String[] options) {
-		System.out.print(prompt + ":  ");
-		input = sc.findInLine(".*");
-		sc.nextLine();
+		getInput(prompt);
 
 //		if (input.equalsIgnoreCase("h")) {
 //			// Todo: add help
@@ -98,16 +91,20 @@ public class IO {
 	}
 	// based on a rgb input, return the ansi code for various colors
 	protected static String rgbText(int red, int green, int blue) {
-		return String.format("\33[38;2;%d;%d;%dm", red, green, blue);
+		return String.format("\033[38;2;%d;%d;%dm", red, green, blue);
 	}
 	protected static String rgbBackground(int red, int green, int blue) {
-		return String.format("\33[48;2;%d;%d;%dm", red, green, blue);
+		return String.format("\033[48;2;%d;%d;%dm", red, green, blue);
 	}
-	// read from data.json
+	// clear console window
+	protected static void clearScreen() {
+		System.out.println("\033[H\033[2J");
+	}
+	// return data from data.json
 	protected static ArrayList<ArrayList<String>> readData(String path, String key, ArrayList<String> subKeys) {
 		ArrayList<ArrayList<String>> data = new ArrayList<>();
 
-		if (json.isEmpty()) {
+		if (json == null) {
 			readJSON(path);
 		}
 
@@ -123,13 +120,14 @@ public class IO {
 		return data;
 	}
 	protected static int readData(String path, String key) {
-		if (json.isEmpty()) {
+		if (json == null) {
 			readJSON(path);
 		}
 		return new JSONObject(json).getInt(key);
 	}
 
-	//=== Private Functions ===\\
+	//=== PRIVATE FUNCTIONS ===\\
+	// read data.json
 	private static void readJSON(String path) {
 		// read json and create object
 		try (BufferedReader in = new BufferedReader(new FileReader(path + "data.json"))) {
@@ -143,6 +141,14 @@ public class IO {
 		}
 		catch (Exception e) {
 			System.out.println(e.getMessage());
+		}
+	}
+	private static void getInput(String prompt) {
+		System.out.print(inputColor + prompt + ":" + neutral + "  ");
+		input = sc.findInLine(".*");
+		sc.nextLine();
+		if (input == null) {
+			input = "";
 		}
 	}
 }
