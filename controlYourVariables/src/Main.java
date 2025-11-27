@@ -20,7 +20,7 @@ public class Main extends IO {
 				
 				You must report to the King at the end of every stage, and tell him what you think is wrong"""
 		);
-		inputString("Continue?");
+		inputString("Press Enter to Continue");
 		clearScreen();
 
 		myFarm.main(new String[]{});

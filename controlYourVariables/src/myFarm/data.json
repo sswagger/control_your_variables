@@ -22,10 +22,10 @@
   "animals":[
     {"name":"Horse","crops":"0,1","products":"0,1","size":"5"},
     {"name":"Cattle","crops":"1,2","products":"0,1,2","size":"5"},
-    {"name":"Sheep","crops":"3","products":"0","size":"5"},
-    {"name":"Chickens","crops":"3,4","products":"0","size":"5"},
-    {"name":"Turkeys","crops":"3,4","products":"0","size":"5"},
-    {"name":"Pigs","crops":"0,1,2,3,4","products":"0","size":"5"},
-    {"name":"Goats","crops":"0,1,2,3,4","products":"0","size":"5"}
+    {"name":"Sheep","crops":"3","products":"0","size":"3"},
+    {"name":"Chickens","crops":"3,4","products":"0","size":"1"},
+    {"name":"Turkeys","crops":"3,4","products":"0","size":"2"},
+    {"name":"Pigs","crops":"0,1,2,3,4","products":"0","size":"3"},
+    {"name":"Goats","crops":"0,1,2,3,4","products":"0","size":"3"}
   ]
 }

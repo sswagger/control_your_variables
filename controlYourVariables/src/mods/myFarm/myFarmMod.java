@@ -1,14 +1,18 @@
+//=== PACKAGE ===\\
 package mods.myFarm;
 
-public class myFarmMod {
-	public static String dataPath = null;
+//=== IMPORTED MODULES ===\\
+import baseModels.IO;
 
-	public boolean endMonthOverride = false;
-	public static void endMonth() {
+//=== CLASS ===\\
+public class myFarmMod extends IO {
+	//=== VARIABLES ===\\
+	private static final String currDirectory = System.getProperty("user.dir");
+	protected static String dataPath = "";
+	protected static boolean endMonthOverride = false;
+
+	//=== FUNCTIONS ===\\
+	protected static void endMonthMod() {
 		return;
-	}
-
-	public static void start() {
-
 	}
 }

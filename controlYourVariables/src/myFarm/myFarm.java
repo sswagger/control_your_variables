@@ -1,71 +1,111 @@
+//=== PACKAGE ===\\
 package myFarm;
 
-import baseModels.IO;
+//=== IMPORTED MODULES ===\\
 import mods.myFarm.myFarmMod;
 import myFarm.Models.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class myFarm extends IO {
-	//=== Variables ===\\
-	private static ArrayList<String> months =  new ArrayList<>(Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
+//=== CLASS ===\\
+public class myFarm extends myFarmMod {
+	//=== VARIABLES ===\\
+	private static final ArrayList<String> months =  new ArrayList<>(Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"));
 	private static int monthI;
 	private static int year;
 	private static int fields;
-	private static String infoColor;
-	private static String inputColor;
-	private static String dangerColor;
+	private static int plows;
+	private static int barns;
 	private static ArrayList<Crops> crops;
 	private static ArrayList<Products> products;
 	protected static ArrayList<Animals> animals;
 
-	//=== Functions ===\\
+	//=== FUNCTIONS ===\\
+	private static void continueGame() {
+		inputString("Press Enter to Continue");
+		clearScreen();
+		printEquip();
+	}
+	private static void endMonth() {
+		if (endMonthOverride) {
+			endMonthMod();
+		}
+		else {
+			endMonthMod();
+			// todo: end the month normally
+			monthI++;
+		}
+	}
 	private static void printEquip() {
-		// fixme: loop through crops, animals, and products
-		System.out.println("your equipment here");
+		String format = "%-50s%s";
+		for (Crops crop : crops) {
+			System.out.printf(String.format(format, infoColor + crop.getNumCrops() + " " + crop, crop.getNumPlanted() + " planted" + neutral + "\n"));
+		}
+		// todo: add products and animals
 	}
 	private static void year() {
 		boolean hasQuit = false;
 
-		if (inputStringBool("Do you want instructions?", new String[]{"y"})) {
+		if (inputStringBool("Do you want instructions (y/n)", new String[]{"y"})) {
 			System.out.println(infoColor + "You said yes!" + neutral);  // Todo: add instructions
+			continueGame();
 		}
 		while (!hasQuit) {
+			int availFields = 0;
+			for (Animals animal : animals) {
+				if (animal.getSize() > 5) {
+					if (animal.getNumAnimals() <= plows) {
+						if (animal.getNumAnimals() <= fields) {
+							availFields = animal.getNumAnimals();
+						}
+						else {
+							availFields = plows;
+						}
+					}
+					else {
+						if (fields <= plows) {
+							availFields = fields;
+						}
+					}
+					break;
+				}
+			}
+
 			while (monthI < 4) {
-				if (inputStringBool("Do you want to plant your crops?", new String[]{"y"})) {
+				if (inputStringBool("Do you want to plant your crops (y/n)", new String[]{"y"})) {
+					clearScreen();
 					for (Crops crop : crops) {
 						if (crop.getNumCrops() > 0) {
-							crop.plantCrops(inputInt("How many " + crop + " do you want to plant (you have " + crop.getNumCrops() + ")?"));
+							crop.plantCrops(inputInt("How many " + crop + " do you want to plant (you have " + availFields + " available fields)?"));
 						}
 					}
 				}
-				break;  //testing purposes
+				endMonth();
 			}
-			break;  //testing purposes
+			break;  // fixme: testing purposes
 		}
-		System.out.println(crops);  // test
-		System.out.println(products);  // test
-		System.out.println(animals);  // test
 		// Todo: finish the year
 	}
 
-	//=== Main Function ===\\
+	//=== MAIN FUNCTION ===\\
 	public static void main(String[] args) {
 		String dataPath = System.getProperty("user.dir") + "\\controlYourVariables\\src\\myFarm\\";
 		if (myFarmMod.dataPath != null && !myFarmMod.dataPath.isEmpty()) {
 			dataPath = myFarmMod.dataPath;
 		}
 
-//		try {
-//			monthI = Integer.parseInt(readData(dataPath, "monthI"));
-//			year = Integer.parseInt(readData(dataPath, "yearI"));
-//			fields = Integer.parseInt(readData(dataPath, "fields"));
-//		}
-//		catch (Exception e) {
-//			System.out.println("Cannot read simple data, check file format");
-//			System.out.println(e.getClass() + ": " + e.getMessage());
-//			return;
-//		}
+		try {
+			monthI = readData(dataPath, "monthI");
+			year = readData(dataPath, "yearI");
+			fields = readData(dataPath, "fields");
+			plows = readData(dataPath, "plows");
+			barns = readData(dataPath, "barns");
+		}
+		catch (Exception e) {
+			System.out.println("Cannot read simple data, check file format");
+			System.out.println(e.getClass() + ": " + e.getMessage());
+			return;
+		}
 
 		crops = new ArrayList<>();
 		ArrayList<ArrayList<String>> newCrops = readData(dataPath, "crops", new ArrayList<>(Arrays.asList("name", "profit")));
@@ -109,9 +149,15 @@ public class myFarm extends IO {
 			animals.add(new Animals(animal.get(0), cropList, productList, Integer.parseInt(animal.get(3))));
 		}
 
-		infoColor = rgbText(255, 255, 0) + rgbBackground(60, 140, 0);
-		inputColor = rgbText(250, 250, 250) + rgbBackground(55, 150, 0);
-		dangerColor = rgbText(255, 255, 0) + rgbBackground(210, 0, 0);
+		if (infoColor == null || infoColor.isEmpty()) {
+			infoColor = rgbText(255, 255, 0) + rgbBackground(60, 140, 0);
+		}
+		if (inputColor == null || inputColor.isEmpty()) {
+			inputColor = rgbText(250, 250, 250) + rgbBackground(55, 150, 0);
+		}
+		if (dangerColor == null || dangerColor.isEmpty()) {
+			dangerColor = rgbText(255, 255, 0) + rgbBackground(210, 0, 0);
+		}
 		crops.getFirst().setNumCrops(80);
 
 		year();
