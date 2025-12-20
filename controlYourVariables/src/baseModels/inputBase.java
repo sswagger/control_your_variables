@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 //=== CLASS ===\\
-public class IO {
+public class inputBase {
 	//=== VARIABLES ===\\
 	protected static final String neutral = "\033[0m";
 	protected static String infoColor = "";

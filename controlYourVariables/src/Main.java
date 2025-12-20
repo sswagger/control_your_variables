@@ -3,14 +3,14 @@
 **/
 
 //=== IMPORTED MODULES ===\\
-import baseModels.IO;
+import baseModels.inputBase;
 import myFarm.myFarm;
 import mySmithy.mySmithy;
 import myWeaver.myWeaver;
 import myCarpenter.myCarpenter;
 
 //=== CLASS ===\\
-public class Main extends IO {
+public class Main extends inputBase {
 	//=== MAIN FUNCTION ===\\
 	public static void main(String[] args) {
 		// give a basic overview of the game

@@ -27,14 +27,14 @@ public class myFarm extends myFarmMod {
 		printEquip();
 	}
 	private static void endMonth() {
-		if (endMonthOverride) {
-			endMonthMod();
-		}
-		else {
-			endMonthMod();
+		endMonthMod();
+		if (!endMonthOverride) {
 			// todo: end the month normally
 			monthI++;
 		}
+	}
+	private static void fail(String message) {
+
 	}
 	private static void printEquip() {
 		String format = "%-50s%s";
@@ -74,15 +74,21 @@ public class myFarm extends myFarmMod {
 			while (monthI < 4) {
 				if (inputStringBool("Do you want to plant your crops (y/n)", new String[]{"y"})) {
 					clearScreen();
-					for (Crops crop : crops) {
-						if (crop.getNumCrops() > 0) {
-							crop.plantCrops(inputInt("How many " + crop + " do you want to plant (you have " + availFields + " available fields)?"));
+					if (availFields > 0) {
+						for (Crops crop : crops) {
+							if (crop.getNumCrops() > 0) {
+								crop.plantCrops(inputInt("How many " + crop + " do you want to plant (you have " + availFields + " available fields)?"));
+							}
 						}
+					}
+					else {
+						fail("You don't have any available fields!");
+						break;
 					}
 				}
 				endMonth();
 			}
-			break;  // fixme: testing purposes
+			break;
 		}
 		// Todo: finish the year
 	}

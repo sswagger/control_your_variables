@@ -1,8 +1,8 @@
 package mySmithy;
-import baseModels.IO;
+import baseModels.inputBase;
 
 
-public class mySmithy extends IO {
+public class mySmithy extends inputBase {
 	public static void main(String[] args) {
 
 	}

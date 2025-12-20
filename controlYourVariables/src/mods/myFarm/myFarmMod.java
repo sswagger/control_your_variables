@@ -2,10 +2,10 @@
 package mods.myFarm;
 
 //=== IMPORTED MODULES ===\\
-import baseModels.IO;
+import baseModels.inputBase;
 
 //=== CLASS ===\\
-public class myFarmMod extends IO {
+public class myFarmMod extends inputBase {
 	//=== VARIABLES ===\\
 	private static final String currDirectory = System.getProperty("user.dir");
 	protected static String dataPath = "";

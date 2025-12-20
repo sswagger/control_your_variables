@@ -1,8 +1,8 @@
 package myWeaver;
-import baseModels.IO;
+import baseModels.inputBase;
 
 
-public class myWeaver extends IO {
+public class myWeaver extends inputBase {
 	public static void main(String[] args) {
 
 	}

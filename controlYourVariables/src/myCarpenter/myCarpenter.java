@@ -1,8 +1,8 @@
 package myCarpenter;
-import baseModels.IO;
+import baseModels.inputBase;
 
 
-public class myCarpenter extends IO {
+public class myCarpenter extends inputBase {
 	public static void main(String[] args) {
 
 	}

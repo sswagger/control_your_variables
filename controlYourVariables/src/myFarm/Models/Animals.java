@@ -1,17 +1,19 @@
+//=== PACKAGE ===\\
 package myFarm.Models;
 
+//=== IMPORTED MODULES ===\\
 import java.util.ArrayList;
 
-
+//=== CLASS ===\\
 public class Animals {
-	//=== Attributes ===\\
+	//=== ATTRIBUTES ===\\
 	private final String name;
 	private final ArrayList<Crops> eatableCrops;
 	private final ArrayList<Products> producible;
 	private final int size;
 	private int numAnimals;
 
-	//=== Constructors ===\\
+	//=== CONSTRUCTORS ===\\
 	public Animals(String name, ArrayList<Crops> eatableCrops, ArrayList<Products> producible, int size) {
 		this.name = name;
 		this.eatableCrops = eatableCrops;
@@ -19,7 +21,7 @@ public class Animals {
 		this.size = size;
 	}
 
-	//=== Methods ===\\
+	//=== METHODS ===\\
 	public void eat() {
 		int numToEat = this.numAnimals * this.size;
 
@@ -47,7 +49,7 @@ public class Animals {
 		return this.name;
 	}
 
-	//=== Getters ===\\
+	//=== GETTERS ===\\
 	public String getName() {
 		return name;
 	}
@@ -64,7 +66,7 @@ public class Animals {
 		return size;
 	}
 
-	//=== Setters ===\\
+	//=== SETTERS ===\\
 	public void setNumAnimals(int numAnimals) {
 		this.numAnimals = numAnimals;
 	}
