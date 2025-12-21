@@ -216,7 +216,7 @@ public class inputBase {
 	//=== PRIVATE FUNCTIONS ===\\
 	// read data.json
 	private static void readJSON(String path) {
-		// read json and create object
+		// read JSON and create object
 		try (BufferedReader in = new BufferedReader(new FileReader(path + "data.json"))) {
 			String line;
 			StringBuilder sbJSON = new StringBuilder();

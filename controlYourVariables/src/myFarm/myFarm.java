@@ -16,6 +16,7 @@ public class myFarm extends myFarmMod {
 	private static int fields;
 	private static int plows;
 	private static int barns;
+	private static boolean hasQuit = false;
 	private static ArrayList<Crops> crops;
 	private static ArrayList<Products> products;
 	protected static ArrayList<Animals> animals;
@@ -33,8 +34,24 @@ public class myFarm extends myFarmMod {
 			monthI++;
 		}
 	}
-	private static void fail(String message) {
+	private static void market() {
 
+	}
+	private static void fail(String message) {
+		System.out.println(dangerColor + "Oops! " + message + neutral);
+		System.out.println(infoColor + "You can choose any of the following:" + neutral);
+		System.out.println(infoColor + "1. Continue anyway" + neutral);
+		System.out.println(infoColor + "2. Go to the market" + neutral);
+		System.out.println(infoColor + "3. Quit and report to king" + neutral + "\n");
+
+		switch (inputString("Your Choice", new String[] {"1", "2", "3"})) {
+			case "1":
+				return;
+			case "2":
+				market();
+			case "3":
+				hasQuit = true;
+		}
 	}
 	private static void printEquip() {
 		String format = "%-50s%s";
@@ -43,13 +60,13 @@ public class myFarm extends myFarmMod {
 		}
 		// todo: add products and animals
 	}
-	private static void year() {
-		boolean hasQuit = false;
 
+	private static void year() {
 		if (inputStringBool("Do you want instructions (y/n)", new String[]{"y"})) {
-			System.out.println(infoColor + "You said yes!" + neutral);  // Todo: add instructions
+			System.out.println(infoColor + "You said yes!  // fixme" + neutral);  // Todo: add instructions
 			continueGame();
 		}
+
 		while (!hasQuit) {
 			int availFields = 0;
 			for (Animals animal : animals) {
@@ -71,6 +88,7 @@ public class myFarm extends myFarmMod {
 				}
 			}
 
+			// plant crops
 			while (monthI < 4) {
 				if (inputStringBool("Do you want to plant your crops (y/n)", new String[]{"y"})) {
 					clearScreen();
@@ -88,7 +106,20 @@ public class myFarm extends myFarmMod {
 				}
 				endMonth();
 			}
-			break;
+
+			// water crops
+			int currMonth = monthI;
+			int water = 0;
+			while (monthI < currMonth+6) {
+				for (Crops crop : crops) {
+					if (crop.getNumPlanted() > 0) {
+						water += inputInt("How much water do you want to give to your crops (you have " + fields + " fields)?");
+					}
+				}
+				endMonth();
+			}
+
+			break;  // fixme: testing purposes
 		}
 		// Todo: finish the year
 	}
