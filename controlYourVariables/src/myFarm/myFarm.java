@@ -2,6 +2,7 @@
 package myFarm;
 
 //=== IMPORTED MODULES ===\\
+import baseModels.jsonReader;
 import mods.myFarm.myFarmMod;
 import myFarm.Models.*;
 import java.util.ArrayList;
@@ -68,6 +69,8 @@ public class myFarm extends myFarmMod {
 		}
 
 		while (!hasQuit) {
+			monthI = 0;
+			year += 1;
 			int availFields = 0;
 			for (Animals animal : animals) {
 				if (animal.getSize() > 5) {
@@ -101,8 +104,8 @@ public class myFarm extends myFarmMod {
 					}
 					else {
 						fail("You don't have any available fields!");
-						break;
 					}
+					break;
 				}
 				endMonth();
 			}
@@ -117,9 +120,41 @@ public class myFarm extends myFarmMod {
 					}
 				}
 				endMonth();
+
+				if (water <= (monthI - currMonth) * 75) {
+					System.out.println(dangerColor + "Your crops are starting to dry up!" + neutral);
+				}
+				else if (water >= (monthI - currMonth) * 125) {
+					System.out.println(dangerColor + "Your crops are starting to drown!" + neutral);
+				}
 			}
 
-			break;  // fixme: testing purposes
+			// harvest crops
+			while (monthI < 11) {
+				if (inputStringBool("Do you want to harvest your crops? (y/n)", new String[]{"y"})) {
+					for (Crops crop : crops) {
+						crop.harvestCrops();
+					}
+					break;
+				}
+				endMonth();
+			}
+
+			// go to market
+			while (monthI < 12) {
+				if (inputStringBool("Do you want to go to the market?", new String[]{"y"})) {
+					market();
+				}
+				else {
+					break;
+				}
+				endMonth();
+			}
+
+			// end month
+			while (monthI < 12) {
+				// todo: eat food...
+			}
 		}
 		// Todo: finish the year
 	}
@@ -130,13 +165,14 @@ public class myFarm extends myFarmMod {
 		if (myFarmMod.dataPath != null && !myFarmMod.dataPath.isEmpty()) {
 			dataPath = myFarmMod.dataPath;
 		}
+		jsonReader data = new jsonReader(dataPath);
 
 		try {
-			monthI = readData(dataPath, "monthI");
-			year = readData(dataPath, "yearI");
-			fields = readData(dataPath, "fields");
-			plows = readData(dataPath, "plows");
-			barns = readData(dataPath, "barns");
+			monthI = data.readData(data.getPath(), "monthI");
+			year = data.readData(data.getPath(), "yearI");
+			fields = data.readData(data.getPath(), "fields");
+			plows = data.readData(data.getPath(), "plows");
+			barns = data.readData(data.getPath(), "barns");
 		}
 		catch (Exception e) {
 			System.out.println("Cannot read simple data, check file format");
@@ -145,19 +181,19 @@ public class myFarm extends myFarmMod {
 		}
 
 		crops = new ArrayList<>();
-		ArrayList<ArrayList<String>> newCrops = readData(dataPath, "crops", new ArrayList<>(Arrays.asList("name", "profit")));
+		ArrayList<ArrayList<String>> newCrops = data.readData(dataPath, "crops", new ArrayList<>(Arrays.asList("name", "profit")));
 		for (ArrayList<String> crop : newCrops) {
 			crops.add(new Crops(crop.get(0), Integer.parseInt(crop.get(1))));
 		}
 
 		products = new ArrayList<>();
-		ArrayList<ArrayList<String>> newProducts = readData(dataPath, "products", new ArrayList<>(Arrays.asList("name", "numProduce")));
+		ArrayList<ArrayList<String>> newProducts = data.readData(dataPath, "products", new ArrayList<>(Arrays.asList("name", "numProduce")));
 		for (ArrayList<String> product : newProducts) {
 			products.add(new Products(product.get(0), Integer.parseInt(product.get(1))));
 		}
 
 		animals = new ArrayList<>();
-		ArrayList<ArrayList<String>> newAnimals = readData(dataPath, "animals", new ArrayList<>(Arrays.asList("name", "crops", "products", "size")));
+		ArrayList<ArrayList<String>> newAnimals = data.readData(dataPath, "animals", new ArrayList<>(Arrays.asList("name", "crops", "products", "size")));
 		for (ArrayList<String> animal : newAnimals) {
 			ArrayList<Crops> cropList = new ArrayList<>();
 			ArrayList<Products> productList = new ArrayList<>();
