@@ -154,6 +154,7 @@ public class myFarm extends myFarmMod {
 			// end month
 			while (monthI < 12) {
 				// todo: eat food...
+				endMonth();
 			}
 		}
 		// Todo: finish the year
