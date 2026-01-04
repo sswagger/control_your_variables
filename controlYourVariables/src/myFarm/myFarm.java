@@ -162,7 +162,7 @@ public class myFarm extends myFarmMod {
 
 	//=== MAIN FUNCTION ===\\
 	public static void main(String[] args) {
-		String dataPath = System.getProperty("user.dir") + "\\controlYourVariables\\src\\myFarm\\";
+		String dataPath = System.getProperty("user.dir") + "\\controlYourVariables\\src\\myFarm\\Data\\";
 		if (myFarmMod.dataPath != null && !myFarmMod.dataPath.isEmpty()) {
 			dataPath = myFarmMod.dataPath;
 		}

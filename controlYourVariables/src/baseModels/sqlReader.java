@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class sqlReader {
 	public void test() {
-		String url = "jdbc:sqlite:C:/sqlite/my.db";
+		String url = "jdbc:sqlite:\\..\\myFarm\\Data\\myFarm.db";
 
 		try (var conn = DriverManager.getConnection(url)) {
 			if (conn != null) {
