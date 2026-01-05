@@ -1,5 +1,5 @@
 /**
- * This is the parent class for all classes that contain a psvm
+ * This is a class that parses and reads data from a json file
  **/
 
 //=== PACKAGE ===\\
