@@ -20,6 +20,13 @@ public class Animals {
 		this.producible = producible;
 		this.size = size;
 	}
+	public Animals(String name, ArrayList<Crops> eatableCrops, ArrayList<Products> producible, int size, int numAnimals) {
+		this.name = name;
+		this.eatableCrops = eatableCrops;
+		this.producible = producible;
+		this.size = size;
+		this.numAnimals = numAnimals;
+	}
 
 	//=== METHODS ===\\
 	public void eat() {

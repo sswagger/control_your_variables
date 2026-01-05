@@ -11,6 +11,11 @@ public class Products {
 		this.name = name;
 		this.numProduce = numProduce;
 	}
+	public Products(String name, double numProduce, int numProducts) {
+		this.name = name;
+		this.numProduce = numProduce;
+		this.numProducts = numProducts;
+	}
 
 	//=== Methods ===\\
 	@Override

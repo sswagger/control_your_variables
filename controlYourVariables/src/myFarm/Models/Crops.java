@@ -12,6 +12,12 @@ public class Crops {
 		this.name = name;
 		this.profit = profit;
 	}
+	public Crops(String name, int profit, int numCrops, int numPlanted) {
+		this.name = name;
+		this.profit = profit;
+		this.numCrops = numCrops;
+		this.numPlanted = numPlanted;
+	}
 
 	//=== Methods ===\\
 	public void plantCrops(int numPlanted) {
