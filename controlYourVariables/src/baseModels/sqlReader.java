@@ -8,14 +8,13 @@ package baseModels;
 //=== IMPORTED MODULES ===\\
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 //=== CLASS ===\\
-public class sqlReader {
+public abstract class sqlReader {
 	//=== ATTRIBUTES ===\\
-	private String url;
+	protected String url;
 
 	//=== CONSTRUCTORS ===\\
 	public sqlReader(String dataPath) {
@@ -30,34 +29,38 @@ public class sqlReader {
 	}
 
 	//=== METHODS ===\\
-	public ArrayList<String> readDb(String sql, ArrayList<String> columns) throws Exception {
-		ArrayList<String> data = new ArrayList<>();
+	public void createTable(String table, ArrayList<ArrayList<String>> columns) throws SQLException {
 		try (var connection = DriverManager.getConnection(this.url)) {
-			String readQuery = sql;
-			PreparedStatement preparedStatement = connection.prepareStatement(readQuery);
-			ResultSet s = preparedStatement.executeQuery();
+			StringBuilder createSql = new StringBuilder("CREATE " + table + "(");
 
-			for (String i : columns) {
-				data.add(s.getString(i));
+			for (ArrayList<String> i : columns) {
+				createSql.append(" ").append(i.getFirst()).append(" ").append(i.getLast());
+				if (i != columns.getLast()) {
+					createSql.append(",");
+				}
 			}
 
-			preparedStatement.close();
-			return data;
-		}
-		catch (SQLException e) {
-			throw new Exception(e.getMessage());
-		}
-	}
-	public void updateDb(String sql) throws Exception {
-		try (var connection = DriverManager.getConnection(this.url)) {
-			String updateQuery = sql;
-			PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
+			createSql.append(")");
+			PreparedStatement preparedStatement = connection.prepareStatement(createSql.toString());
 			preparedStatement.executeUpdate();
 
 			preparedStatement.close();
 		}
 		catch (SQLException e) {
-			throw new Exception(e.getMessage());
+			throw new SQLException(e);
+		}
+	}
+	public void deleteTable(String table) throws SQLException {
+		try (var connection = DriverManager.getConnection(this.url)) {
+			String deleteSql = "DROP " + table;
+
+			PreparedStatement preparedStatement = connection.prepareStatement(deleteSql);
+			preparedStatement.executeUpdate();
+
+			preparedStatement.close();
+		}
+		catch (SQLException e) {
+			throw new SQLException(e);
 		}
 	}
 }

@@ -9,7 +9,7 @@ package baseModels;
 import java.util.Scanner;
 
 //=== CLASS ===\\
-public class inputBase {
+public abstract class inputBase {
 	//=== VARIABLES ===\\
 	protected static final String neutral = "\033[0m";
 	protected static String infoColor = "";
