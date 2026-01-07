@@ -6,6 +6,7 @@
 package baseModels;
 
 //=== IMPORTED MODULES ===\\
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 //=== CLASS ===\\
@@ -165,8 +166,11 @@ public abstract class inputBase {
 	// display input and ensure that the user said something
 	private static void getInput(String prompt) {
 		System.out.print(inputColor + prompt + ":" + neutral + "  ");
-		input = sc.findInLine(".*");
-		sc.nextLine();
+		try {
+			input = sc.findInLine(".*");
+			sc.nextLine();
+		}
+		catch (NoSuchElementException ignored) { }
 		if (input == null) {
 			input = "";
 		}

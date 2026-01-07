@@ -235,5 +235,9 @@ public class myFarm extends myFarmMod {
 		crops.getFirst().setNumCrops(80);
 
 		year();
+
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			System.out.println("Good Bye");  // fixme: save data when user exits
+		}));
 	}
 }
