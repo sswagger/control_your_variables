@@ -1,0 +1,142 @@
+# Ideas Dump
+
+* $  : sellable
+* ↓  : the item above is needed for the item below
+* →  : the item to the left is needed for the item to the right
+* →↓ : the item to the right combined with the item above creates the item below
+* ┬  : multiple things are needed for the item below
+* ┴  : the item above is needed for multiple things
+
+There will be other variables determining certain things.
+However, the ones listed will have multiple attributes and are defined as objects
+
+# myFarm (stage-1):
+```
+crops$
+  │
+  ↓
+animals$
+  │
+  ↓
+products$
+```
+
+# myWeaver (stage-2):
+```
+	                             wool*(from farmer)
+	    spinner(from carpenter)──→│
+	                              │
+	                              ↓
+  wood(from carpenter)  ┌───────thread*    jewels*(from blacksmith)
+	  │                 ↓         │         │
+	  └───────────────────→loom──→│←────────┘
+	                              ↓
+	                           Products*
+```
+
+# myCarpenter (stage-3):
+```
+	                 forest
+	    lumberjacks ──→│
+	                   ↓
+	                 wood
+	    sawblades ────→│
+	                   ↓         nails (from smithy)
+	                lumber*        │
+	                   │←──────────┘
+	                   ↓
+	                Products*
+```
+
+
+# mySmithy (stage-4):
+```
+	        ┌──────────┐
+	        │ mines    │     quarries
+	miners ─┴──→│      └───────→│
+	            ↓               ↓
+	           ore            rock$
+	furnace ───→│               │←─────── crusher
+	            ↓           ┌───┴───┐
+	          metal$        │       │
+	m_smiths ──→│           ↓       ↓
+	anvils ────→│          gems$  gravel$
+	hammers ───→│           │←─────────────── jewelers
+	            └─────┬─────┘
+	                  │
+	                  ↓
+	               products$
+```
+
+# myArmy (stage-5):
+```
+	                    tax
+	    ┌────────────────┤
+	    │                ↓
+	    │              money
+	    │                │
+	 ┌──┼───────┬────────┴┬───────────────────┐
+	 │  │       │         │                   │
+	 │  │ farms │ weavers │ smithies          │    carpenters
+	 │  │   │   │    │    │    │              │        │
+	 │  │   │   │    │    │    ├────────┐     │        │
+	 │  │   │←──┘    │←───┴───→│        │←────┴───────→│
+	 ↓  │   ↓        ↓         ↓        ↓              ↓
+	men └─→food   clothes    armor    weapons     big_weapons
+	 │      │         │        │        │              │
+	 └──────┴─────────┴────┬───┴────────┴──────────────┘
+	                       │
+	                       ↓
+	                     battle
+```
+
+---
+
+# Hazards
+| Hazard        | Direction | Remedy  |
+|---------------|-----------|---------|
+| Dragons       | North     | Wizards |
+| MegaScorpions | North     | Wizards |
+| Thieves       | East      | Dogs    |
+| Birds         | South     | Cats    |
+| Rats          | South     | Cats    |
+| Enemy Country | West      | Knights |
+
+# Defenders
+| Defenders | Side effects                           | How to Get          |
+|-----------|----------------------------------------|---------------------|
+| Wizards   | Occasionally get their spells mixed up | FIXME: Unknown      |
+| Dogs      | Difficult to get                       | Salesman; Mechanics |
+| Cats      | Difficult to get                       | Salesman; Mechanics |
+| Knights   | N/A                                    | FIXME: Unknown      |
+
+# People
+| People              |  Usage                                                                       |
+|---------------------|------------------------------------------------------------------------------|
+| Wizards             |  Defend against Dragons and MegaScorpions, Sometimes mess up on their spells |
+| Knights             |  Defend against raiding countries                                            |
+| Traveling Salesman  |  Sells rare things for cheap                                                 |
+| Mechanics           |  Make miraculous inventions                                                  |
+| Duke of Wealthyton  |  Usually in charge of you                                                    |
+| King of Wealthyland |  The most important man in the game                                          |
+
+# Overall storyline:
+The King of Wealthyland is concerned about Wealthyton (a major county of his country).
+For the past 5 (or however many) months, Wealthyton has not paid its full taxes.
+And to make maters worse, there are rumors that Wealthyton is raising its own army.
+He has sent a spy (the player) disguised as a normal worker, to find out what is happening in Wealthyton.
+The player will report back to the King at the end of every stage, and tell him what he thinks is wrong:
+Invaders, Pests, Monsters, or even if the Duke is trying to revolt
+
+Stage 5 will be any of the following:
+* King vs Duke
+* Duke vs Pests
+* King vs Invading Country
+* King's knights and King's wizards vs monsters
+* Duke vs Thieves and Raiders
+
+___
+
+# New Ideas:
+make games in random order
+* games = farming, blacksmith, weaver, and carpenter
