@@ -24,9 +24,10 @@ public abstract class inputBase {
 	 * Takes numerical input from System.in.
 	 *
 	 * @param prompt {@code String}: Question that prompts the user for a response
+	 * @param help {@code String}: Helpful hint for the user
 	 * @return {@code Int}: The users response parsed into an int
 	**/
-	protected static int inputInt(String prompt) {
+	protected static int inputInt(String prompt, String help) {
 		while (true) {
 			getInput(prompt);
 			try {
@@ -34,7 +35,7 @@ public abstract class inputBase {
 			}
 			catch (NumberFormatException e) {
 				if (input.equalsIgnoreCase("h")) {
-					// Todo: add help
+					System.out.println(help);
 					continue;
 				}
 				System.out.println(dangerColor + "Invalid Number, Try Again." + neutral);
@@ -46,9 +47,10 @@ public abstract class inputBase {
 	 * Takes decimal input from System.in.
 	 *
 	 * @param prompt {@code String}: The String that prompts the user for a response
+	 * @param help {@code String}: Helpful hint for the user
 	 * @return {@code Double}: The users response parsed into a Double
 	**/
-	protected static Double inputDouble(String prompt) {
+	protected static Double inputDouble(String prompt, String help) {
 		while (true) {
 			getInput(prompt);
 
@@ -57,7 +59,7 @@ public abstract class inputBase {
 			}
 			catch (NumberFormatException e) {
 				if (input.equalsIgnoreCase("h")) {
-					// Todo: add help
+					System.out.println(help);
 					continue;
 				}
 				System.out.println(dangerColor + "Invalid Decimal, Try Again." + neutral);
@@ -69,13 +71,13 @@ public abstract class inputBase {
 	 * Takes any input from System.in.
 	 *
 	 * @param prompt {@code String}: The String that prompts the user for a response
+	 * @param help {@code String}: Helpful hint for the user
 	 * @return {@code String}: The users response
 	**/
-	protected static String inputString(String prompt) {
+	protected static String inputString(String prompt, String help) {
 		getInput(prompt);
 		if  (input.equalsIgnoreCase("h")) {
-			// Todo: add help
-			;
+			System.out.println(help);
 		}
 		return input;
 	}
@@ -92,10 +94,6 @@ public abstract class inputBase {
 		while (true) {
 			getInput(prompt);
 
-			if (input.equalsIgnoreCase("h")) {
-				// Todo: add help
-				continue;
-			}
 			for (String option : options) {
 				if (option.equalsIgnoreCase(input)) {
 					return input;
@@ -118,10 +116,6 @@ public abstract class inputBase {
 	protected static boolean inputStringBool(String prompt, String[] options) {
 		getInput(prompt);
 
-//		if (input.equalsIgnoreCase("h")) {
-//			// Todo: add help
-//			;
-//		}
 		for (String option : options) {
 			if (option.equalsIgnoreCase(input)) {
 				return true;
@@ -163,7 +157,9 @@ public abstract class inputBase {
 
 
 	//=== PRIVATE FUNCTIONS ===\\
-	// display input and ensure that the user said something
+	/**
+	 * Display input and ensure that the user said something
+	**/
 	private static void getInput(String prompt) {
 		System.out.print(inputColor + prompt + ":" + neutral + "  ");
 		try {
