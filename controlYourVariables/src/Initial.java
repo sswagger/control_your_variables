@@ -29,7 +29,17 @@ public class Initial {
 			processBuilder.start();
 		}
 		catch (IOException e) {
-			System.out.println(e.getMessage());  // todo: create better error handling, since this will be executed without a "System"
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter("error.txt"))) {
+				writer.write("an error occurred when starting the application");
+				writer.newLine();
+				writer.write(e.getMessage());
+				for (StackTraceElement stackItem : e.getStackTrace()) {
+					writer.write(stackItem.toString());
+				}
+			}
+			catch (IOException exception) {
+				assert true;
+			}
 		}
 	}
 }
