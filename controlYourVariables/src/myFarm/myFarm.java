@@ -32,6 +32,7 @@ public class myFarm extends myFarmMod {
 	private static void endMonth() {
 		endMonthMod();
 		if (!endMonthOverride) {
+			printEquip();
 			// Player
 			if (crops.get(0).getNumCrops() > 3) { //magicnumber
 				crops.get(0).setNumCrops(crops.get(0).getNumCrops() - 3); //magicnumber
@@ -61,7 +62,7 @@ public class myFarm extends myFarmMod {
 
 				for (Products p : a.getProducible()) {
 					if (!p.getRequireKill()) {
-						p.setNumProducts((int)(p.getNumProducts() + (p.getNumProduce() * a.getSize())));
+						p.setNumProducts((int)(p.getNumProducts() + (p.getNumProduce() * a.getSize() * a.getNumAnimals())));
 					}
 				}
 			}
@@ -74,6 +75,7 @@ public class myFarm extends myFarmMod {
 
 	}
 	private static void fail(String message) {
+		clearScreen();
 		System.out.println(dangerColor + "Oops! " + message + neutral);
 		System.out.println(infoColor + "You can choose any of the following:" + neutral);
 		System.out.println(infoColor + "1. Continue anyway" + neutral);
@@ -90,27 +92,36 @@ public class myFarm extends myFarmMod {
 		}
 	}
 	private static void printEquip() {
-		System.out.println("Year: " + year);
-		System.out.println("Month: " + months.get(monthI));
-		System.out.println("Fields: " + fields);
-		System.out.println("Plows: " + plows);
-		System.out.println("Barns: " + barns);
+		clearScreen();
+		System.out.println(infoColor + "Year: " + year + neutral);
+		System.out.println(infoColor + "Month: " + months.get(monthI) + neutral);
+		System.out.println(infoColor + "Fields: " + fields + neutral);
+		System.out.println(infoColor + "Plows: " + plows + neutral);
+		System.out.println(infoColor + "Barns: " + barns + neutral);
 
 		String format = "%s%-10s%10s%s";
 		for (Crops crop : crops) {
-			System.out.printf(String.format(format, infoColor, crop.getNumCrops() + " " + crop, crop.getNumPlanted() + " planted", neutral));
-			System.out.println();
+			if (crop.getNumCrops() > 0) {
+				System.out.printf(String.format(format, infoColor, crop.getNumCrops() + " " + crop, crop.getNumPlanted() + " planted", neutral));
+				System.out.println();
+			}
 		}
 
-		format = "%s%-20s%s";
+		System.out.println();
+		format = "%s%-15s%s";
 		for (Animals animal : animals) {
-			System.out.printf(String.format(format, infoColor, animal.getNumAnimals() + " " + animal,  neutral));
-			System.out.println();
+			if (animal.getNumAnimals() > 0) {
+				System.out.printf(String.format(format, infoColor, animal + ": " + animal.getNumAnimals(), neutral));
+				System.out.println();
+			}
 		}
 
+		System.out.println();
 		for (Products product : products) {
-			System.out.printf(String.format(format, infoColor, product.getNumProducts() + " " + product, neutral));
-			System.out.println();
+			if (product.getNumProducts() > 0) {
+				System.out.printf(String.format(format, infoColor, product + ": " + product.getNumProducts(), neutral));
+				System.out.println();
+			}
 		}
 	}
 
@@ -119,6 +130,7 @@ public class myFarm extends myFarmMod {
 			System.out.println(infoColor + "You said yes!  // fixme" + neutral);  // Todo: add instructions
 			continueGame();
 		}
+		clearScreen();
 
 		while (!hasQuit) {
 			monthI = 0; //magicnumber
@@ -131,7 +143,7 @@ public class myFarm extends myFarmMod {
 			// find out how many animals can pull a plow
 			int numBigAnimals = 0;
 			for (Animals animal : animals) {
-				if (animal.getSize() > 5) { //magicnumber
+				if (animal.getSize() >= 5) { //magicnumber
 					numBigAnimals += 1; //magicnumber
 				}
 			}
@@ -140,6 +152,7 @@ public class myFarm extends myFarmMod {
 			int availFields = fieldRestrictions.getFirst();
 
 			// plant crops
+			printEquip();
 			while (monthI < 4) {
 				// find out if the user wants to plant crops this month
 				if (inputStringBool("Do you want to plant your crops (y/n)", new String[]{"y"})) {
@@ -167,81 +180,98 @@ public class myFarm extends myFarmMod {
 				}
 				endMonth();
 			}
+			// todo: fail if user does not plant anything
 
 			// water crops
-			int currMonth = monthI;
-			int water = 0;
-			// crops need to grow for 6 months
-			while (monthI < currMonth+6) {
-				water += inputInt("How much water do you want to give to your crops (you have " + fields + " fields)?", "");
-				endMonth();
+			if (!hasQuit) {
+				clearScreen();
+				printEquip();
+				int currMonth = monthI;
+				int water = 0;
+				// crops need to grow for 6 months
+				while (monthI < currMonth + 6) {
+					water += inputInt("How much water do you want to give to your crops (you have " + fields + " fields)?", "");
+					endMonth();
 
-				if (water <= (monthI - currMonth) * 75) { //magicnumber
-					System.out.println(dangerColor + "Your crops are starting to dry up!" + neutral);
+					if (water <= (monthI - currMonth) * 75) { //magicnumber
+						System.out.println(dangerColor + "Your crops are starting to dry up!" + neutral);
+					}
+					else if (water >= (monthI - currMonth) * 125) { //magicnumber
+						System.out.println(dangerColor + "Your crops are starting to drown!" + neutral);
+					}
 				}
-				else if (water >= (monthI - currMonth) * 125) { //magicnumber
-					System.out.println(dangerColor + "Your crops are starting to drown!" + neutral);
-				}
+				// todo: fail if water is not right
 			}
 
 			// harvest crops
-			while (monthI < 11) {
-				if (inputStringBool("Do you want to harvest your crops? (y/n)", new String[]{"y"})) {
-					for (Crops crop : crops) {
-						crop.harvestCrops();
+			if (!hasQuit) {
+				while (monthI < 11) {
+					if (inputStringBool("Do you want to harvest your crops? (y/n)", new String[]{"y"})) {
+						for (Crops crop : crops) {
+							crop.harvestCrops();
+						}
+						break;
 					}
-					break;
+					endMonth();
 				}
-				endMonth();
 			}
 
 			// go to market
-			while (monthI < 12) {
-				// see if user wants to kill animals
-				boolean killFood = inputStringBool("Do you want to kill any animals for food?", new String[]{"y"});
-				if (killFood) {
-					// loop through animals
-					for (Animals a : animals) {
-						int killAnimal = inputIntMax("How many " + a + " do you want to kill?", a.getNumAnimals(), ""); // fixme: add help
-						if (killAnimal > 0) {
-							a.setNumAnimals(a.getNumAnimals() - killAnimal);
-							for (Products p : a.getProducible()) {
-								p.setNumProducts((int)(p.getNumProducts() + (p.getNumProduce() * a.getNumAnimals())));
+			if (!hasQuit) {
+				while (monthI < 12) {
+					// see if user wants to kill animals
+					boolean killFood = inputStringBool("Do you want to kill any animals for food?", new String[]{"y"});
+					if (killFood) {
+						// loop through animals
+						for (Animals a : animals) {
+							if (a.getNumAnimals() > 0) {
+								int killAnimal = inputIntMax("How many " + a + " do you want to kill?", a.getNumAnimals(), ""); // fixme: add help
+								if (killAnimal > 0) {
+									a.setNumAnimals(a.getNumAnimals() - killAnimal);
+									for (Products p : a.getProducible()) {
+										p.setNumProducts((int) (p.getNumProducts() + (p.getNumProduce() * a.getNumAnimals())));
+									}
+								}
 							}
 						}
 					}
+					if (inputStringBool("Do you want to go to the market?", new String[]{"y"})) {
+						market();
+					}
+					else {
+						break;
+					}
+					endMonth();
 				}
-				if (inputStringBool("Do you want to go to the market?", new String[]{"y"})) {
-					market();
-				}
-				else {
-					break;
-				}
-				endMonth();
 			}
 
 			// end year
-			while (monthI < 12) {
-				int foodEaten = 0;
-				while (foodEaten < 5) {
-					if (crops.get(0).getNumCrops() > 0) { // magicnumber
-						int numEat = inputIntMax("How much " + crops.get(0) + " do you want to eat?", crops.get(0).getNumCrops(), "");
-						crops.get(0).setNumCrops(numEat); // magicnumber
-						foodEaten += numEat;
-					}
-
-					for (Products p : products) {
-						if (p.getEatable()) {
-							int numEat = inputIntMax("How many " + p + " do you want to eat?", p.getNumProducts(), "");
-							p.setNumProducts(p.getNumProducts() - numEat);
+			if (!hasQuit) {
+				while (monthI < 12) {
+					int foodEaten = 0;
+					while (foodEaten < 5) {
+						if (crops.get(0).getNumCrops() > 0) { // magicnumber
+							int numEat = inputIntMax("How much " + crops.get(0) + " do you want to eat?", crops.get(0).getNumCrops(), "");
+							crops.get(0).setNumCrops(numEat); // magicnumber
 							foodEaten += numEat;
 						}
+
+						for (Products p : products) {
+							if (p.getEatable()) {
+								int numEat = inputIntMax("How many " + p + " do you want to eat?", p.getNumProducts(), "");
+								p.setNumProducts(p.getNumProducts() - numEat);
+								foodEaten += numEat;
+							}
+						}
 					}
+					endMonth();
 				}
-				endMonth();
 			}
 
-			hasQuit = inputStringBool("Do you want to quit and report to the king? (y/n)", new String[]{"y"});
+			// ask to continue to next year
+			if (!hasQuit) {
+				hasQuit = inputStringBool("Do you want to quit and report to the king? (y/n)", new String[]{"y"});
+			}
 		}
 	}
 
@@ -273,13 +303,13 @@ public class myFarm extends myFarmMod {
 		}
 
 		products = new ArrayList<>();
-		ArrayList<ArrayList<String>> newProducts = data.readData(dataPath, "products", new ArrayList<>(Arrays.asList("name", "numProduce", "requireKill", "editable")));
+		ArrayList<ArrayList<String>> newProducts = data.readData(dataPath, "products", new ArrayList<>(Arrays.asList("name", "numProduce", "requireKill", "eatable")));
 		for (ArrayList<String> product : newProducts) {
 			products.add(new Products(product.get(0), Double.parseDouble(product.get(1)), Boolean.parseBoolean(product.get(2)), Boolean.parseBoolean(product.get(3))));
 		}
 
 		animals = new ArrayList<>();
-		ArrayList<ArrayList<String>> newAnimals = data.readData(dataPath, "animals", new ArrayList<>(Arrays.asList("name", "crops", "products", "size")));
+		ArrayList<ArrayList<String>> newAnimals = data.readData(dataPath, "animals", new ArrayList<>(Arrays.asList("name", "crops", "products", "size", "number")));
 		for (ArrayList<String> animal : newAnimals) {
 			ArrayList<Crops> cropList = new ArrayList<>();
 			ArrayList<Products> productList = new ArrayList<>();
@@ -305,7 +335,7 @@ public class myFarm extends myFarmMod {
 					System.out.println(dangerColor + "Cannot read products! " + productI + neutral);
 				}
 			}
-			animals.add(new Animals(animal.get(0), cropList, productList, Integer.parseInt(animal.get(3))));
+			animals.add(new Animals(animal.get(0), cropList, productList, Integer.parseInt(animal.get(3)), Integer.parseInt(animal.get(4))));
 		}
 
 		if (infoColor == null || infoColor.isEmpty()) {

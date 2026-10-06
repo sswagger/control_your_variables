@@ -21,12 +21,12 @@
     {"name":"Eggs","numProduce":"2","requireKill":"false","eatable":"true"}
   ],
   "animals":[
-    {"name":"Horse","crops":"1,0","products":"0,1","size":"5"},
-    {"name":"Cattle","crops":"2,1","products":"0,1,2","size":"5"},
-    {"name":"Sheep","crops":"3","products":"4,2","size":"3"},
-    {"name":"Chickens","crops":"4,3","products":"2,3,5","size":"1"},
-    {"name":"Turkeys","crops":"4,3","products":"2,3,5","size":"2"},
-    {"name":"Pigs","crops":"4,3,2,1,0","products":"2","size":"3"},
-    {"name":"Goats","crops":"4,3,2,1,0","products":"0,1","size":"3"}
+    {"name":"Horse","crops":"1,0","products":"0,2","size":"5","number":"1"},
+    {"name":"Cattle","crops":"2,1","products":"0,1,2","size":"5","number":"0"},
+    {"name":"Sheep","crops":"3","products":"4,2","size":"3","number":"0"},
+    {"name":"Chickens","crops":"4,3","products":"2,3,5","size":"1","number":"0"},
+    {"name":"Turkeys","crops":"4,3","products":"2,3,5","size":"2","number":"0"},
+    {"name":"Pigs","crops":"4,3,2,1,0","products":"2","size":"3","number":"0"},
+    {"name":"Goats","crops":"4,3,2,1,0","products":"0,1","size":"3","number":"0"}
   ]
 }
