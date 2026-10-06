@@ -28,7 +28,7 @@ public class Main extends inputBase {
 				
 				You must report to the King at the end of every stage, and tell him what you think is wrong"""
 		);
-		inputString("Press Enter to Continue");
+		inputString("Press Enter to Continue", "");
 		clearScreen();
 
 		// execute games one by one

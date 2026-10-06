@@ -13,19 +13,20 @@
     {"name":"Barley","profit":"10"}
   ],
   "products":[
-    {"name":"Leather","numProduce":"2"},
-    {"name":"Milk","numProduce":"2"},
-    {"name":"Meat","numProduce":"2"},
-    {"name":"Wool","numProduce":"2"},
-    {"name":"Eggs","numProduce":"2"}
+    {"name":"Leather","numProduce":"0.5","requireKill":"true","eatable":"false"},
+    {"name":"Milk","numProduce":"3","requireKill":"false","eatable":"true"},
+    {"name":"Meat","numProduce":"10","requireKill":"true","eatable":"true"},
+    {"name":"Feathers","numProduce":"10","requireKill":"true","eatable":"false"},
+    {"name":"Wool","numProduce":"1","requireKill":"false","eatable":"false"},
+    {"name":"Eggs","numProduce":"2","requireKill":"false","eatable":"true"}
   ],
   "animals":[
-    {"name":"Horse","crops":"0,1","products":"0,1","size":"5"},
-    {"name":"Cattle","crops":"1,2","products":"0,1,2","size":"5"},
-    {"name":"Sheep","crops":"3","products":"0","size":"3"},
-    {"name":"Chickens","crops":"3,4","products":"0","size":"1"},
-    {"name":"Turkeys","crops":"3,4","products":"0","size":"2"},
-    {"name":"Pigs","crops":"0,1,2,3,4","products":"0","size":"3"},
-    {"name":"Goats","crops":"0,1,2,3,4","products":"0","size":"3"}
+    {"name":"Horse","crops":"1,0","products":"0,1","size":"5"},
+    {"name":"Cattle","crops":"2,1","products":"0,1,2","size":"5"},
+    {"name":"Sheep","crops":"3","products":"4,2","size":"3"},
+    {"name":"Chickens","crops":"4,3","products":"2,3,5","size":"1"},
+    {"name":"Turkeys","crops":"4,3","products":"2,3,5","size":"2"},
+    {"name":"Pigs","crops":"4,3,2,1,0","products":"2","size":"3"},
+    {"name":"Goats","crops":"4,3,2,1,0","products":"0,1","size":"3"}
   ]
 }

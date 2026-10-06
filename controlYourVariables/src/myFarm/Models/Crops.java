@@ -12,11 +12,11 @@ public class Crops {
 		this.name = name;
 		this.profit = profit;
 	}
-	public Crops(String name, int profit, int numCrops, int numPlanted) {
+	public Crops(String name, int profit, int numCrops) {
 		this.name = name;
 		this.profit = profit;
 		this.numCrops = numCrops;
-		this.numPlanted = numPlanted;
+		this.numPlanted = 0;
 	}
 
 	//=== Methods ===\\
@@ -42,6 +42,9 @@ public class Crops {
 	}
 	public String getName() {
 		return this.name;
+	}
+	public int getProfit() {
+		return profit;
 	}
 
 	//=== Setters ===\\

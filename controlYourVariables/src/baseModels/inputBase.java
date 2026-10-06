@@ -83,6 +83,35 @@ public abstract class inputBase {
 	}
 
 	/**
+	 * Takes any input from System.in.
+	 *
+	 * @param prompt {@code String}: The String that prompts the user for a response
+	 * @param max {@code Integer}: The maximum value that the user can submit
+	 * @param help {@code String}: Helpful hint for the user
+	 * @return {@code String}: The users response
+	 **/
+	protected static int inputIntMax(String prompt, Integer max, String help) {
+		while (true) {
+			getInput(prompt);
+			try {
+				int userInput = Integer.parseInt(input);
+				if (userInput > max) {
+					System.out.println(dangerColor + "Number cannot be that high." + neutral);
+					continue;
+				}
+				return userInput;
+			}
+			catch (NumberFormatException e) {
+				if (input.equalsIgnoreCase("h")) {
+					System.out.println(help);
+					continue;
+				}
+				System.out.println(dangerColor + "Invalid Number, Try Again." + neutral);
+			}
+		}
+	}
+
+	/**
 	 * Takes input from System.in.
 	 * Forces the user to enter one of the defined options.
 	 *
