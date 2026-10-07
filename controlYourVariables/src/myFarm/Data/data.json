@@ -4,13 +4,14 @@
   "fields":2,
   "plows":2,
   "barns":1,
+  "money":100,
 
   "crops":[
-    {"name":"Wheat","profit":"10"},
-    {"name":"Oat","profit":"10"},
-    {"name":"Hay","profit":"10"},
-    {"name":"Corn","profit":"10"},
-    {"name":"Barley","profit":"10"}
+    {"name":"Wheat","profit":"100"},
+    {"name":"Oat","profit":"100"},
+    {"name":"Hay","profit":"100"},
+    {"name":"Corn","profit":"50"},
+    {"name":"Barley","profit":"50"}
   ],
   "products":[
     {"name":"Leather","numProduce":"0.5","requireKill":"true","eatable":"false"},
