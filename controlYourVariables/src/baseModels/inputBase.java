@@ -50,12 +50,17 @@ public abstract class inputBase {
 	 * @param help {@code String}: Helpful hint for the user
 	 * @return {@code Double}: The users response parsed into a Double
 	**/
-	protected static Double inputDouble(String prompt, String help) {
+	protected static Double inputDoubleMax(String prompt, double max, String help) {
 		while (true) {
 			getInput(prompt);
 
 			try {
-				return Double.parseDouble(input);
+				double userInput = Double.parseDouble(input);
+				if (userInput > max) {
+					System.out.println(dangerColor + "Number cannot be that high." + neutral);
+					continue;
+				}
+				return userInput;
 			}
 			catch (NumberFormatException e) {
 				if (input.equalsIgnoreCase("h")) {

@@ -7,21 +7,24 @@ public class Products {
 	private int numProducts;
 	private final boolean requireKill;
 	private final boolean eatable;
+	private final double cost;
 
 	//=== Constructors ===\\
-	public Products(String name, double numProduce, boolean requireKill, boolean eatable) {
+	public Products(String name, double numProduce, boolean requireKill, boolean eatable, double cost) {
 		this.name = name;
 		this.numProduce = numProduce;
 		this.numProducts = 0;
 		this.requireKill = requireKill;
 		this.eatable = eatable;
+		this.cost = cost;
 	}
-	public Products(String name, double numProduce, int numProducts, boolean requireKill, boolean eatable) {
+	public Products(String name, double numProduce, int numProducts, boolean requireKill, boolean eatable, double cost) {
 		this.name = name;
 		this.numProduce = numProduce;
 		this.numProducts = numProducts;
 		this.requireKill = requireKill;
 		this.eatable = eatable;
+		this.cost = cost;
 	}
 
 	//=== Methods ===\\
@@ -45,6 +48,9 @@ public class Products {
 	}
 	public boolean getEatable() {
 		return eatable;
+	}
+	public double getCost() {
+		return cost;
 	}
 
 	//=== Setters ===\\

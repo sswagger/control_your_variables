@@ -89,8 +89,87 @@ public class myFarm extends myFarmMod {
 			printEquip();
 		}
 	}
+	private static Integer bargain(String name, int num, double price) {
+		int numCustomers = rand.nextInt(10) + 5; // magicnumber
+		int numSold = 0;
+
+		while (num > 0 && numCustomers > 0) {
+			int randTrade = rand.nextInt(3);
+			if (randTrade == 0) {
+				int numBuy = rand.nextInt(num);
+				if (inputStringBool("A customer wants to buy " + numBuy + " " + name + ". Do you accept (y/n)", new String[]{"y"})) {
+					num -= numBuy;
+					numSold += numBuy;
+					money += numBuy * price;
+					numCustomers--;
+				}
+			}
+			else if (randTrade == 1) {
+				double numPrice = (double) rand.nextInt((int) (price * 100)) / 100;
+				if (inputStringBool("A customer offers $" + numPrice + ".00 for the rest of your " + name + ". Do you accept (y/n)", new String[]{"y"})) {
+					numSold += num;
+					money += num * numPrice;
+					num = 0;
+					numCustomers--;
+				}
+			}
+			else {
+				Animals randAnimal = animals.get(rand.nextInt(animals.size()));
+				if (inputStringBool("A customer offers to trade one " + randAnimal + " for the rest of your " + name + ". Do you accept (y/n)", new String[]{"y"})) {
+					numSold += num;
+					randAnimal.setNumAnimals(randAnimal.getNumAnimals() + 1);
+					num = 0;
+					numCustomers--;
+				}
+			}
+		}
+		return numSold;
+	}
 	private static void market() {
-		// todo: add market
+		// sell
+		for (Crops c : crops) {
+			if (c.getNumCrops() > 0) {
+				c.setNumCrops(c.getNumCrops() - bargain(
+					c.getName(),
+					inputIntMax("How many bushels of " + c + " do you want to sell?", c.getNumCrops(),"You have " + c.getNumCrops() + " " + c + "."),
+					inputDoubleMax("How much do you want to charge for one bushel of " + c + "?", 15, "Customers will not buy if you charge more than $15") //magicnumber
+				));
+			}
+		}
+		for (Products p : products) {
+			if (p.getNumProducts() > 0) {
+				p.setNumProducts(p.getNumProducts() - bargain(
+					p.getName(),
+					inputIntMax("How many " + p + " do you want to sell?", p.getNumProducts(),"You have " + p.getNumProducts() + " " + p + "."),
+					inputDoubleMax("How much do you want to charge for one " + p + "?", p.getCost(), "Customers will not buy if you charge more than $" + p.getCost())
+				));
+			}
+		}
+		for (Animals a : animals) {
+			if (a.getNumAnimals() > 0) {
+				a.setNumAnimals(a.getNumAnimals() - bargain(
+					a.getName(),
+					inputIntMax("How many " + a + " do you want to sell?", a.getNumAnimals(),"You have " + a.getNumAnimals() + " " + a + "."),
+					inputDoubleMax("How much do you want to charge for one " + a + "?", 60, "Customers will not buy if you charge more than $60") //magicnumber
+				));
+			}
+		}
+
+		// buy
+		for (int i = 0; i < crops.size(); i++) {
+			if (i <= year) {
+				Crops c = crops.get(i);
+				int cropPrice = 15 + year; // magicnumber
+				c.setNumCrops(c.getNumCrops() + inputInt(c + " are $" + cropPrice + " each. How many " + c + " do you want to buy?", ""));
+			}
+		}
+		for (int i = 0; i < animals.size(); i++) {
+			if (i <= year) {
+				Animals a = animals.get(i);
+				int cropPrice = 15 + year; // magicnumber
+				a.setNumAnimals(a.getNumAnimals() + inputInt(a + " are $" + cropPrice + " each. How many " + a + " do you want to buy?", ""));
+			}
+		}
 	}
 	private static void fail(String message) {
 		clearScreen();
@@ -378,9 +457,9 @@ public class myFarm extends myFarmMod {
 		}
 
 		products = new ArrayList<>();
-		ArrayList<ArrayList<String>> newProducts = data.readData(dataPath, "products", new ArrayList<>(Arrays.asList("name", "numProduce", "requireKill", "eatable")));
+		ArrayList<ArrayList<String>> newProducts = data.readData(dataPath, "products", new ArrayList<>(Arrays.asList("name", "numProduce", "requireKill", "eatable", "cost")));
 		for (ArrayList<String> product : newProducts) {
-			products.add(new Products(product.get(0), Double.parseDouble(product.get(1)), Boolean.parseBoolean(product.get(2)), Boolean.parseBoolean(product.get(3))));
+			products.add(new Products(product.get(0), Double.parseDouble(product.get(1)), Boolean.parseBoolean(product.get(2)), Boolean.parseBoolean(product.get(3)), Double.parseDouble(product.get(4))));
 		}
 
 		animals = new ArrayList<>();

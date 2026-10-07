@@ -14,12 +14,12 @@
     {"name":"Barley","profit":"50"}
   ],
   "products":[
-    {"name":"Leather","numProduce":"0.5","requireKill":"true","eatable":"false"},
-    {"name":"Milk","numProduce":"3","requireKill":"false","eatable":"true"},
-    {"name":"Meat","numProduce":"10","requireKill":"true","eatable":"true"},
-    {"name":"Feathers","numProduce":"10","requireKill":"true","eatable":"false"},
-    {"name":"Wool","numProduce":"1","requireKill":"false","eatable":"false"},
-    {"name":"Eggs","numProduce":"2","requireKill":"false","eatable":"true"}
+    {"name":"Leather","numProduce":"0.5","requireKill":"true","eatable":"false","cost":"60"},
+    {"name":"Milk","numProduce":"3","requireKill":"false","eatable":"true","cost":"1"},
+    {"name":"Meat","numProduce":"10","requireKill":"true","eatable":"true","cost":"2"},
+    {"name":"Feathers","numProduce":"10","requireKill":"true","eatable":"false","cost":"1"},
+    {"name":"Wool","numProduce":"1","requireKill":"false","eatable":"false","cost":"30"},
+    {"name":"Eggs","numProduce":"2","requireKill":"false","eatable":"true","cost":"1"}
   ],
   "animals":[
     {"name":"Horse","crops":"1,0","products":"0,2","size":"5","number":"1"},
