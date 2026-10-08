@@ -12,13 +12,13 @@ However, the ones listed will have multiple attributes and are defined as object
 
 # myFarm (stage-1):
 ```
-crops$
-  │
-  ↓
-animals$
-  │
-  ↓
-products$
+       crops$
+         │
+         ↓
+      animals$
+         │
+         ↓
+     products$
 ```
 
 # myWeaver (stage-2):

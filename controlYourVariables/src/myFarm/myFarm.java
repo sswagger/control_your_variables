@@ -170,6 +170,13 @@ public class myFarm extends myFarmMod {
 				a.setNumAnimals(a.getNumAnimals() + inputInt(a + " are $" + cropPrice + " each. How many " + a + " do you want to buy?", ""));
 			}
 		}
+
+		// todo: hire wizards
+		// todo: hire mechanics
+		// todo: hire knights
+		// todo: get new fields (from the duke)
+		// todo: get new barns (carpenter)
+		// todo: get new plows (smith)
 	}
 	private static void fail(String message) {
 		clearScreen();
